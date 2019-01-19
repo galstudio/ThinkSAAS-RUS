@@ -1,0 +1,13 @@
+{php include pubTemplate("header_admin")}
+<div class="midder">
+{template menu}
+    <table class="table table-hover">
+        <tbody>
+<tr><td width="250">Весь кеш:</td><td><a href="index.php?app=system&ac=cache&ts=delall">Очистить весь кеш сайта</a></td></tr>
+<tr><td>Кеш шаблона:</td><td><a href="index.php?app=system&ac=cache&ts=deltemp">Очистить кеш шаблона</a></td></tr>
+<tr><td>Кеш автаров групп:</td><td><a href="index.php?app=system&ac=cache&ts=delgroup">Очистить кеш аватаров групп</a></td></tr>
+<tr><td>Кеш автаров пользователей:</td><td><a href="index.php?app=system&ac=cache&ts=deluser">Очистить кэш аватаров пользователей</a></td></tr>
+        </tbody>
+</table>
+</div>
+{php include pubTemplate("footer_admin")}

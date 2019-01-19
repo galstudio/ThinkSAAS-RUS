@@ -1,0 +1,9 @@
+<hr />
+<div class="sendbox">
+<p>Вы можете ответить <span style="color:#0066cc;">{$strTouser[username]}</span> в поле ниже:</p>
+<p><textarea id="boxcontent"></textarea> </p>
+<p>
+<span id="sendbutton" style="display:block;"><a class="btn" href="javascript:void('0');" onclick="sendmsg('{$TS_USER[userid]}','{$strTouser[userid]}');">Ответить</a></span>
+<span id="loading" style="display:none;">Доставка сообщений…<img src="{SITE_URL}app/{$app}/skins/{$skin}/loading.gif" alt="Загрузка..." /></span>
+</p>
+</div>

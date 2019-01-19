@@ -1,0 +1,6 @@
+<div class="mb-3">
+    <a class="btn btn-sm {if $ac=='my'}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('message','my')}">Последние</a>
+    <a class="btn btn-sm {if $ac=='system'}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('message','system')}">Системные</a>
+    <a class="btn btn-sm {if $ac=='friend' || $ac=='user'}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('message','friend')}">От друзей</a>
+</div>
+<hr />

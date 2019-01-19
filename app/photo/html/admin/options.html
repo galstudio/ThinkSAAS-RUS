@@ -1,0 +1,20 @@
+{php include pubTemplate("header_admin")}
+<div class="midder">
+{php include template("admin/menu")}
+<form  method="POST" action="index.php?app=photo&ac=admin&mg=options&ts=do">
+<table class="table table-hover">
+<tr><td width="250">Название приложения:</td><td><input style="width:300px;" name="option[appname]" value="{$strOption[appname]}" /></td></tr>
+<tr><td>Описание:</td><td><textarea style="width:300px;" name="option[appdesc]">{$strOption[appdesc]}</textarea></td></tr>
+<tr><td>Ключевые слова:</td><td><input style="width:300px;" name="option[appkey]" value="{$strOption[appkey]}" /></td></tr>
+<tr><td>Модерировать?</td><td><input type="radio" name="option[isaudit]" value="0" {if $strOption['isaudit']=='0'}checked{/if}  /> нет <input type="radio" name="option[isaudit]" value="1" {if $strOption['isaudit']=='1'}checked{/if} /> да</td></tr>
+<tr><td></td><td>
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+<input class="btn btn-primary" type="submit" value="Сохранить" /></td></tr>
+</table>
+</form>
+<table class="table table-hover">
+<tr><td>Пересчитать альбомы</td><td><a href="{SITE_URL}index.php?app=photo&ac=admin&mg=album&ts=count">Выполнить</a></td></tr>
+<tr><td>Удалить пустые альбомы</td><td><a href="{SITE_URL}index.php?app=photo&ac=admin&mg=album&ts=nophoto">Выполнить</a></td></tr>
+</table>
+</div>
+{php include pubTemplate("footer_admin")}

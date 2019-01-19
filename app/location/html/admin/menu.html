@@ -1,0 +1,8 @@
+<h6>Управление регионами</h6>
+<div class="tabnav">
+<ul>
+<li {if $mg=='options'}class="select"{/if}><a href="{SITE_URL}index.php?app=location&ac=admin&mg=options">Конфигурация</a></li>
+<li {if $mg=='location' && $ts=='list'}class="select"{/if}><a href="{SITE_URL}index.php?app=location&ac=admin&mg=location&ts=list">Список регионов</a></li>
+<li {if $mg=='location' && $ts=='add'}class="select"{/if}><a href="{SITE_URL}index.php?app=location&ac=admin&mg=location&ts=add">Добавить регион</a></li>
+</ul>
+</div>

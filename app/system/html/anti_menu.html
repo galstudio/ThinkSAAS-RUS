@@ -1,0 +1,10 @@
+<div class="tabnav">
+<ul>
+<li {if $ts=='word'}class="select"{/if}><a href="index.php?app=system&ac=anti&ts=word">Спам-слова</a></li>
+<li {if $ts=='ip'}class="select"{/if}><a href="index.php?app=system&ac=anti&ts=ip">IP-фильтр</a></li>
+<li {if $ts=='cloud'}class="select"{/if}><a href="index.php?app=system&ac=anti&ts=cloud">Облачный фильтр</a></li>
+<li {if $ts=='report'}class="select"{/if}><a href="index.php?app=system&ac=anti&ts=report">Отчеты</a></li>
+<li {if $ac=='phpinfo'}class="select"{/if}><a href="index.php?app=system&ac=phpinfo">phpinfo</a></li>
+<li {if $ac=='test'}class="select"{/if}><a href="index.php?app=system&ac=test">Тест</a></li>
+</ul>
+</div>

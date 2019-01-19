@@ -1,0 +1,73 @@
+{php include pubTemplate("header")}
+<div class="container">
+
+
+
+    <div class="row">
+
+
+        <div class="col-md-3">
+            <div class="my_left">
+
+                {php include pubTemplate("my")}
+
+            </div>
+        </div>
+
+
+
+        <div class="col-md-9">
+
+
+            <div class="card">
+                <div class="card-header">Мои статьи</div>
+                <div class="card-body">
+
+
+                    <div class="of c9">
+
+                        было опубликовано {$articleNum}
+
+                        <a target="_blank" class="btn btn-sm btn-info float-right" href="{tsUrl('article','add')}">Добавить статью</a>
+                    </div>
+
+
+                    <table class="table mt-3">
+                        <thead class="thead-light">
+                        <tr><th>Заголовок</th><th>Дата/Время</th><th>Действия</th></tr>
+                        </thead>
+
+                        <tbody>
+                        {loop $arrArticle $key $item}
+                        <tr><td>
+
+                            <a target="_blank" href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{tsTitle($item['title'])}</a></td><td class="text-black-50 fs12">{$item['addtime']}</td><td>
+
+                            <a class="fs12 text-black-50" href="{SITE_URL}index.php?app=article&ac=edit&articleid={$item[articleid]}">Правка</a> |
+
+                            <a class="fs12 text-black-50" href="{SITE_URL}index.php?app=article&ac=delete&articleid={$item['articleid']}&token={$_SESSION['token']}">Удалить</a>
+
+                        </td></tr>
+                        {/loop}
+                        <tbody>
+                    </table>
+
+                    <div class="clear"></div>
+                    <div class="page">{$pageUrl}</div>
+
+
+
+                </div>
+            </div>
+
+            </div>
+        </div>
+
+
+
+
+
+</div>
+
+
+{php include pubTemplate("footer")}

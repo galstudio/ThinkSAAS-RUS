@@ -1,0 +1,19 @@
+{php include pubTemplate("header_admin")}
+<div class="midder">
+{php include template("admin/menu");}
+<div><form method="post" action="{SITE_URL}index.php?app=tag&ac=admin&mg=do&ts=adddo"><input type="text" name="tag" /><input type="submit" value="Поиск" /></form></div>
+<div class="page">{$pageUrl}</div>
+<table class="table table-hover">
+    <thead class="thead-light">
+    <tr><th>ID</th><th>Тег</th><th>Создан</th><th>Действия</th></tr>
+    </thead>
+    <tbody>
+    {loop $arrTags $key $item}
+    <tr><td>{$item[tagid]}</td><td>{$item[tagname]}</td><td>{php echo date('Y-m-d H:i:s',$item[uptime])}</td><td>
+        <a href="{SITE_URL}index.php?app=tag&ac=admin&mg=do&ts=opt&tagid={$item[tagid]}">[Оптимизировать]</a>
+        <a href="{SITE_URL}index.php?app=tag&ac=admin&mg=do&ts=isenable&tagid={$item[tagid]}&isenable=<!--{if $item[isenable]=='0'}-->1<!--{else}-->0<!--{/if}-->"><!--{if $item[isenable]=='0'}-->[Запретить]<!--{else}--><font color="red">[Разрешить]</font><!--{/if}--></a> <a href="{SITE_URL}index.php?app=tag&ac=admin&mg=do&ts=del&tagid={$item[tagid]}&page=$page">[Удалить]</a></td></tr>
+    {/loop}
+    </tbody>
+</table>
+</div>
+{php include pubTemplate("footer_admin")}

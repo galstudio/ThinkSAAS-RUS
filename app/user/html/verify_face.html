@@ -1,0 +1,39 @@
+{php include pubTemplate("header")}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    {if $strUser['face']=='' && intval($TS_SITE['isface'])==1}
+                    <div class="alert alert-info">Совет: Вы должны установить аватар, чтобы стать полноправным пользователем нашего сообщества.</div>
+                    {/if}
+                    {if $strUser['path']}
+                    <div class="alert alert-success">
+                        Вы загрузили аватар! Теперь вы можете перейти в наше сообщество!
+                    </div>
+                    {else}
+                        <form method="post" action="{tsUrl('user','verify',array('ts'=>'facedo'))}" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label>Аватар:</label>
+                                <p><img class="rounded" alt="{$strUser['username']}" src="{$strUser[face]}?v={php echo rand();}" width="120" /></p>
+                            </div>
+                            <div class="form-group">
+                                <label>Изображение:</label>
+                                <div>
+                                    <input type="file" name="picfile" />
+                                </div>
+                                <div class="c9 fs12 mt-2">Совет: выберите изображение не более 1M</div>
+                            </div>
+                            <div class="form-group">
+                            <button class="btn btn-sm btn-info" type="submit">Загрузить</button>
+                            </div>
+                        </form>
+                    {/if}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+{php include pubTemplate("footer")}

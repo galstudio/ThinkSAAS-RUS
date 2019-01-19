@@ -1,0 +1,60 @@
+{php include pubTemplate("header")}
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">Главная</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('photo')}">Альбомы</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{$strAlbum['albumname']}</li>
+        </ol>
+    </nav>
+<div class="card">
+  <div class="card-body">
+<h1 class="h3 fw400">{$title}</h1>
+<hr />
+      <div class="c9 fs12">
+          <span class="mr-2"><i class="fal fa-eye"></i> {$strAlbum[count_view]}</span>
+          <span class="mr-2"><i class="fal fa-images"></i> {$strAlbum[count_photo]}</span>
+          <span><i class="fal fa-clock"></i> {$strAlbum[addtime]}</span>
+      </div>
+<div class="row mt-3">
+{if $arrPhoto}
+{loop $arrPhoto $key $item}
+  <div class="col-4 col-md-2 mb-3">
+    <div class="thumbnail">
+      <a href="{tsUrl('photo','show',array('id'=>$item[photoid]))}">
+          <img class="mw100" src="{php echo tsXimg($item[photourl],'photo',170,'170',$item[path],1)}" alt="{$strAlbum['albumname']}{$item['photoname']}">
+      </a>
+      <div class="caption">
+        <div class="c9 fs12 mt-1"><i class="fal fa-eye"></i> {$item[count_view]}</div>
+      </div>
+    </div>
+  </div>
+{/loop}
+{else}
+<br>
+<div class="pl">В этом альбоме пока нет изображений,
+{if $strAlbum[userid] == $TS_USER[userid]} но вы можете их <a href="{SITE_URL}index.php?app=photo&ac=upload&albumid={$strAlbum[albumid]}"><u>сейчас загрузить</u></a>{/if}
+</div>
+<br>
+{/if}
+</div>
+<div class="page">{$pageUrl}</div>
+<div class="text-black-50">{$strAlbum[albumdesc]}</div>
+<hr />
+      <div class="tar fs12 c9 mt-3">
+
+          {if $strAlbum[userid] == $TS_USER[userid] || $TS_USER[isadmin]==1}
+          <a href="{tsUrl('photo','album',array('ts'=>'edit','albumid'=>$strAlbum['albumid']))}"><i class="fal fa-edit" title="Правка альбома"></i></a>
+          &nbsp;&nbsp;<a href="{tsUrl('photo','upload',array('albumid'=>$strAlbum['albumid']))}"><i class="fal fa-upload" title="Загрузить изображение"></i></a>
+          {if $strAlbum[count_photo]>'0'}
+          &nbsp;&nbsp;<a href="{tsUrl('photo','album',array('ts'=>'info','albumid'=>$strAlbum['albumid']))}"><i class="fal fa-info-circle" title="Правка изображения"></i></a>{/if}
+          {/if}
+          {if $strAlbum[userid] == $TS_USER[userid] || $TS_USER[isadmin]==1}
+          &nbsp;&nbsp;<a href="{tsUrl('photo','album',array('ts'=>'del','albumid'=>$strAlbum['albumid']))}"><i class="fal fa-trash-alt" title="Удалить альбом"></i></a>
+          {/if}
+          &nbsp;&gt;&nbsp;<a href="{tsUrl('photo','user',array('id'=>$strAlbum['userid']))}"><i class="fal fa-user"></i> {$strUser['username']}</a>
+      </div>
+</div>
+</div>
+</div>
+{php include pubTemplate("footer")}

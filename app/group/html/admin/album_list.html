@@ -1,0 +1,27 @@
+{php include pubTemplate("header_admin")}
+<!--main-->
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<div class="page">{$pageUrl}</div>
+
+<table class="table table-hover">
+
+
+    <thead class="thead-light">
+    <tr><th>ID</th><th>Название</th><th>Описание</th><th>Содержание</th><th>Действия</th></tr>
+    </thead>
+
+
+<tbody>
+{loop $arrAlbum $key $item}
+<tr><td>{$item['albumid']}</td><td>{$item['albumname']}</td><td>{$item['albumdesc']}</td><td>{$item['count_topic']}</td><td><a onclick="return  confirm('Вы уверены, что хотите удалить этот альбом?')" href="{SITE_URL}index.php?app=group&ac=admin&mg=album&ts=delete&albumid={$item['albumid']}">Удалить</a></td></tr>
+{/loop}
+</tbody>
+
+
+</table>
+
+</div>
+{php include pubTemplate("footer_admin")}

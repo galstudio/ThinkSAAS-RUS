@@ -1,0 +1,53 @@
+{php include pubTemplate("header_admin")}
+
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<form method="POST" action="{SITE_URL}index.php?app=group&ac=admin&mg=options&ts=do">
+<table class="table table-hover">
+
+<tr><td width="220">Название:</td><td><input style="width:300px;" name="option[appname]" value="{$strOption[appname]}" /></td></tr>
+<tr><td>Описание:</td><td><textarea style="width:300px;" name="option[appdesc]">{$strOption[appdesc]}</textarea></td></tr>
+
+
+<tr><td>Ключевые слова:</td><td><input style="width:300px;" name="option[appkey]" value="{$strOption[appkey]}" /></td></tr>
+
+
+<tr><td>Создание:</td><td><input {if $strOption[iscreate]=='0'}checked="select"{/if} name="option[iscreate]" type="radio" value="0" /> да <input {if $strOption[iscreate]=='1'}checked="select"{/if} name="option[iscreate]" type="radio" value="1" /> нет (если нет, то только администраторы могут создавать группы))</td></tr>
+
+<tr><td>Проверка создания:</td><td><input {if $strOption[isaudit]=='1'}checked="select"{/if} name="option[isaudit]" type="radio" value="1" /> да <input {if $strOption[isaudit]=='0'}checked="select"{/if} name="option[isaudit]" type="radio" value="0" /> нет (одобрять вручную создание групп)</td></tr>
+
+<tr><td>Участников в группе:</td><td><input type="text" name="option[joinnum]" value="{$strOption['joinnum']}" width="50" /> (максимальное число пользователей в группе))</td></tr>
+
+
+<tr><td>Разрешить статьи:</td><td><input {if $strOption['isallowpost']=='1'}checked="select"{/if} name="option[isallowpost]" type="radio" value="1" /> нет <input {if $strOption['isallowpost']=='0'}checked="select"{/if} name="option[isallowpost]" type="radio" value="0" /> да</td></tr>
+
+
+    <tr><td>Разрешить вложения:</td><td>
+
+        <input name="option[istopicattach]" type="radio" value="0" {if $strOption['istopicattach']=='0'}checked{/if} /> нет
+
+        <input name="option[istopicattach]" type="radio" value="1" {if $strOption['istopicattach']=='1'}checked{/if} /> да (для вложения в сообщение необходимо установить приложение для вложений)
+
+    </td></tr>
+
+
+    <tr><td>Оплата функций:</td><td>
+
+        <input {if $strOption['ispayjoin']=='0'}checked="select"{/if} name="option[ispayjoin]" type="radio" value="0" /> нет
+        <input {if $strOption['ispayjoin']=='1'}checked="select"{/if} name="option[ispayjoin]" type="radio" value="1" /> да (необходимо установит модуль оплаты)
+
+    </td></tr>
+
+
+
+
+<tr><td></td><td>
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+<input class="btn btn-primary" type="submit" value="Сохранить" /></td></tr>
+</table>
+</form>
+</div>
+
+{php include pubTemplate("footer_admin")}

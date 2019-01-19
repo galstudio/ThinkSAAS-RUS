@@ -1,0 +1,22 @@
+{php include pubTemplate("header_admin")}
+<div class="midder">
+{php include template("admin/menu");}
+<div class="page">{$pageUrl}</div>
+<table class="table table-hover">
+    <thead class="thead-light">
+    <tr>
+        <th>ID сообщения</th><th>ID отправителя</th><th>ID получателя</th><th>Текст</th><th>Отправлено</th> <th>Действия</th>
+    </tr>
+    </thead>
+<tbody>
+{loop $arrMsg $key $item}
+<tr><td>{$item['messageid']}</td><td>{$item['userid']}</td><td>{$item['touserid']}</td><td>{$item['content']}</td>
+    <td>{php echo date('Y-m-d H:i:s',$item['addtime'])}</td>
+    <td>
+        <a onclick="return  confirm('Вы действительно хотите удалить это сообщение?')" href="{SITE_URL}index.php?app=message&ac=admin&mg=msg&ts=delete&page={$page}&messageid={$item['messageid']}">Удалить</a>
+    </td></tr>
+{/loop}
+</tbody>
+</table>
+</div>
+{php include pubTemplate("footer_admin")}

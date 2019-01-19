@@ -1,0 +1,12 @@
+<h6>Управление главной страницей</h6>
+<div class="tabnav">
+<ul>
+<li {if $mg=='options'}class="select"{/if}><a href="{SITE_URL}index.php?app=home&ac=admin&mg=options">Конфигурация</a></li>
+
+<li {if $mg=='info' && $ts=='list'}class="select"{/if}><a href="{SITE_URL}index.php?app=home&ac=admin&mg=info&ts=list">Страницы</a></li>
+
+
+<li {if $ts=='add'}class="select"{/if}><a href="{SITE_URL}index.php?app=home&ac=admin&mg=info&ts=add">Добавить</a></li>
+
+</ul>
+</div>

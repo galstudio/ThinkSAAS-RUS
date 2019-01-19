@@ -1,0 +1,1 @@
+<?phpdefined('IN_TS') or die('Access Denied.');return array(    'name' => 'Обратная связь',    'version' => '1.0',    'desc' => 'Плавающая панель обратной связи на правой стороне сайта!',    'url' => 'http://www.thinksaas.cn',    'email' => 'thinksaas@qq.com',    'author' => 'Цю Юнь',    'author_url' => 'http://www.thinksaas.cn',    'isedit'	=> '1',);

@@ -1,0 +1,92 @@
+{php include pubTemplate("header")}
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">Главная</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('photo')}">Альбомы</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('photo','album',array('id'=>$strAlbum['albumid']))}">{$strAlbum['albumname']}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Изображение {$nowPage}</li>
+        </ol>
+    </nav>
+<div class="row">
+<div class="col-md-8">
+<div class="card">
+  <div class="card-body">
+      <h1 class="h3 fw400">{$strAlbum['albumname']} (Изображение {$nowPage})</h1>
+      <hr />
+<div class="tac fs12 c9">
+    <a class="mr-2" href="{tsUrl('photo','album',array('id'=>$strAlbum[albumid]))}">Альбом</a> Изображение {$nowPage} из {$conutPage}:
+{if $nowPage >1}
+<link href="#" rel="prev">
+<a id="pre_photo" title="Используйте клавиши со стрелками ← для для просмотра предыдущего изображения" href="{tsUrl('photo','show',array('id'=>$prev))}">назад…</a>
+{if $nowPage < $conutPage}
+/
+{/if}
+{/if}
+{if $nowPage < $conutPage}
+<link href="#" rel="next">
+<a id="next_photo" title="Используйте клавиши со стрелками → для просмотра следующего изображения" name="next_photo" href="{tsUrl('photo','show',array('id'=>$next))}">далее…</a>
+{/if}
+</div>
+<div class="tac show_photo mt-3">
+    {if $nowPage < $conutPage}
+	<a title="Нажмите, чтобы посмотреть следующее изображение" href="{tsUrl('photo','show',array('id'=>$next))}" class="mainphoto">
+{/if}
+        <img src="{php echo tsXimg($strPhoto['photourl'],'photo',640,'',$strPhoto['path'])}" alt="{$strAlbum['albumname']}{$strPhoto['photoname']}" title="{$strAlbum['albumname']}: {$strPhoto['photoname']}" />
+	{if $nowPage < $conutPage}
+   </a>
+   {/if}
+</div>
+<div class="tac pd100">
+{$strPhoto[photodesc]}
+</div>
+<div class="c9 fs12">
+ <i class="far fa-eye" title="Просмотры"></i>  {$strPhoto[count_view]} | <i class="fal fa-clock" title="Добавлено"></i> {$strPhoto[addtime]} | <a class="thickbox" target="_blank" href="{SITE_URL}uploadfile/photo/{$strPhoto[photourl]}"><i class="fal fa-image" title="Исходник"></i></a></div>
+<div class="tar c9 fs12">{if $TS_USER[userid] == $strPhoto[userid] || $TS_USER[isadmin]==1}<a href="{tsUrl('photo','edit',array('photoid'=>$strPhoto['photoid']))}"><i class="fal fa-edit" title="Правка"></i></a> | <a rel="nofollow" href="{SITE_URL}index.php?app=photo&ac=do&ts=photo_del&photoid={$strPhoto[photoid]}"><i class="fal fa-trash-alt" title="Удалить"></i></a>{/if}</div>
+</div>
+</div>
+<div class="card">
+        <div class="card-header">Комментарии</div>
+        <div class="card-body">
+    <div id="comments">
+        <table class="wr" id="c-80243627">
+            <tbody>
+            {loop $arrComment $key $item}
+            <tr><td width="75" valign="top"><a href="{tsUrl('user','space',array('id'=>$item['user']['userid']))}"><img src="{$item[user][face]}" width="48" height="48" class="rounded-circle"></a>
+            </td>
+                <td valign="top">
+<span class="wrap">
+<h4><a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}"><i class="fal fa-user"></i> {$item[user][username]}</a> <i class="fal fa-clock" title="Добавил"></i> {php echo date('Y-m-d H:i:s',$item[addtime])}</h4>
+</span>{$item[content]}<br>
+                    <div class="align-right">
+                        {if intval($TS_USER[isadmin]) == 1 || $strPhoto[userid]==$TS_USER[userid]}
+                        <span class="gact"><a class="j a_confirm_link" href="{SITE_URL}index.php?app=photo&ac=do&ts=delcomment&commentid={$item[commentid]}"><i class="fal fa-trash-alt" title="Удалить"></i></a></span>
+                        {/if}
+                    </div>
+                </td></tr>
+            {/loop}
+            </tbody>
+        </table>
+            {if intval($TS_USER[userid]) > 0}
+            <form method="POST" action="{SITE_URL}index.php?app=photo&ac=do&ts=comment_do">
+                <textarea class="form-control" name="content"></textarea>
+                <div class="tar">
+<br />
+                    <input type="hidden" value="{$strPhoto[photoid]}" name="photoid">
+                    <button class="btn btn-sm btn-info" type="submit">Ok</button>
+                </div>
+            </form>
+            {else}
+        <hr />
+        <div class="text-center text-black-50">После входа в систему вы сможете комментировать</div>
+            {/if}
+    </div>
+    </div>
+    </div>
+</div>
+<div class="col-md-4">
+    {php doAction('gobad','300')}
+</div>
+</div>
+</div>
+{php include pubTemplate("footer")}

@@ -1,0 +1,25 @@
+{php include pubTemplate("header")}
+<div class="container">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{SITE_URL}">Главная</a></li>
+      <li class="breadcrumb-item"><a href="{tsUrl('user')}">Пользователи</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Статусы</li>
+    </ol>
+  </nav>
+<div class="card">
+  <div class="card-body">
+<table class="table">
+<thead class="thead-light">
+<tr><th>Статус</th><th>Начальные баллы</th><th>Конечные баллы</th><th>Компетенция</th></tr>
+</thead>
+<tbody>
+{loop $arrRole $key $item}
+<tr><td>{$item['rolename']}</td><td>{$item['score_start']}</td><td>{$item['score_end']}</td><td>Скоро</td></tr>
+{/loop}
+</tbody>
+</table>
+</div>
+</div>
+</div>
+{php include pubTemplate("footer")}

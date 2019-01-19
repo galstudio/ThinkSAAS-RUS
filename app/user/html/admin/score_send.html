@@ -1,0 +1,15 @@
+{php include pubTemplate("header_admin")}
+<div class="midder">
+    {php include template("admin/menu");}
+    <div>
+        <form method="post" action="{SITE_URL}index.php?app=user&ac=admin&mg=score&ts=senddo">
+            <table class="table table-hover">
+                <tr><td>ID пользователя:</td><td><input type="text" name="userid" /></td></tr>
+                <tr><td>Количество баллов:</td><td><input type="text" name="score" /></td></tr>
+                <tr><td>Описание за что:</td><td><input type="text" name="scorename" /></td></tr>
+                <tr><td></td><td><input type="submit" value="Добавить" /></td></tr>
+            </table>
+        </form>
+    </div>
+</div>
+{php include pubTemplate("footer_admin")}

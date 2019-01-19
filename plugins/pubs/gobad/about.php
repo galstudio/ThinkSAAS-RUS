@@ -1,0 +1,1 @@
+<?phpdefined('IN_TS') or die('Access Denied.');return array(    'name' => 'Реклама',    'version' => '1.5',    'desc' => 'Рекламные блоки',    'url' => 'http://www.thinksaas.cn',    'email' => 'thinksaas@qq.com',    'author' => 'Цю Юнь',    'author_url' => 'http://www.thinksaas.cn',    'isedit'	=> '1',);

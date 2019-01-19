@@ -1,0 +1,22 @@
+{php include pubTemplate("header")}
+<!--main-->
+<div class="container">
+    <div class="card">
+        <div class="card-header">Коды инвайтов для приглашения на {$TS_SITE[site_title]}</div>
+        <div class="card-body">
+<div class="alert alert-info">На сегодня осталось только <span style="font-size:24px;color:#FF6600">{$codeNum}</span> инвайтов</div>
+{if $codeNum=='0'}
+<p style="text-align:center;padding:50px;">
+<a class="subab" href="{tsUrl('user','invite',array(ts=>code))}">Нажмите здесь, чтобы подать заявку на получение инвайтов</a>
+</p>
+{else}
+<div class="row">
+{loop $arrCode $key $item}
+<div class="col-md-4 fs14 lh30">{$item['invitecode']}</div>
+{/loop}
+</div>
+{/if}
+</div>
+</div>
+</div>
+{php include pubTemplate("footer")}

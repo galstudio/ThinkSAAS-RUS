@@ -1,0 +1,13 @@
+<h6>Управление пользователями</h6>
+<div class="tabnav">
+<ul>
+<li {if $mg=='options'}class="select"{/if}><a href="{SITE_URL}index.php?app=user&ac=admin&mg=options">Опции</a></li>
+<li {if $mg=='user' && $ts=='list'}class="select"{/if}><a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=list">Пользователи</a></li>
+{if $mg=='user' && $ts=='view'}<li class="select"><a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=list">Пользователь «{$strUser[username]}»</a></li>
+{/if}
+<li {if $mg=='role' && $ts=='list'}class="select"{/if}><a href="{SITE_URL}index.php?app=user&ac=admin&mg=role&ts=list">Статусы</a></li>
+<li {if $mg=='score' && $ts=='list'}class="select"{/if}><a href="{SITE_URL}index.php?app=user&ac=admin&mg=score&ts=list">Интеграция</a></li>
+<li {if $mg=='score' && $ts=='send'}class="select"{/if}><a href="{SITE_URL}index.php?app=user&ac=admin&mg=score&ts=send">Добавить баллы</a></li>
+<li {if $mg=='guestbook' && $ts=='list'}class="select"{/if}><a href="{SITE_URL}index.php?app=user&ac=admin&mg=guestbook&ts=list">Сообщения</a></li>
+</ul>
+</div>

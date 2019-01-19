@@ -1,0 +1,9 @@
+<ul class="nav nav-tabs" role="tablist">
+<li role="presentation" {if $ac=='index'}class="active"{/if}><a href="{tsUrl('article')}">Новые статьи</a></li>
+{loop $arrCate $key $item}
+<li role="presentation" {if $ac=='cate' && $cateid==$item['cateid']}class="active"{/if}>
+<a href="{tsUrl('article','cate',array('id'=>$item['cateid']))}">{$item['catename']}</a>
+</li>{/loop}
+<li role="presentation" {if $ac=='tags'}class="active"{/if}><a href="{tsUrl('article','tags')}">Теги</a></li>
+<li role="presentation" {if $ac=='add'}class="active"{/if}><a href="{tsUrl('article','add')}">Добавить статью</a></li>
+</ul>

@@ -1,0 +1,133 @@
+{php include pubTemplate("header")}
+
+<div class="container">
+
+
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{SITE_URL}">Главная</a></li>
+      <li class="breadcrumb-item"><a href="{tsUrl('article')}">Статьи</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{$strCate['catename']}</li>
+    </ol>
+  </nav>
+
+
+<div class="row">
+
+
+
+<div class="col-md-8">
+
+
+  <div class="card">
+    <div class="card-header">{$strCate['catename']}</div>
+    <div class="card-body">
+
+<div class="clist">
+<ul>
+{loop $arrArticle $key $item}
+<li>
+{if $item['photo']}
+<a href="{tsUrl('article','show',array('id'=>$item[articleid]))}">
+<img style="float:left;" src="{php echo tsXimg($item['photo'],'article',180,140,$item['path'],'1')}" />
+</a>
+{/if}
+
+<div class="title"><a href="{tsUrl('article','show',array('id'=>$item[articleid]))}">{$item[title]}</a></div>
+
+<div class="info fs12"><a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">{$item[user][username]}</a> Добавлена {$item[addtime]}</div>
+
+<div class="content">{if $item['gaiyao']}{tsTitle($item['gaiyao'])}{else}Нет резюме{/if} (<a href="{tsUrl('article','show',array('id'=>$item[articleid]))}">Читать</a>)</div>
+
+<div class="cate tar fs12">просмотров {$item['count_view']} |   комментариев {$item['count_comment']}</div>
+<div class="clear"></div>
+</li>
+{/loop}
+</ul>
+</div>
+
+<div class="mt-4">{$pageUrl}</div>
+</div>
+</div>
+
+
+</div>
+
+
+
+<div class="col-md-4">
+
+
+  <div class="mb-3">
+    <a class="btn btn-info btn-block btn-lg" href="{tsUrl('article','add')}">Добавить статью</a>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Рубрика</div>
+    <div class="card-body">
+
+
+  {loop $arrCate $key $item}
+  <a class="btn {if $item['cateid']==$cateid}btn-outline-primary{else}btn-link{/if}" href="{tsUrl('article','cate',array('id'=>$item['cateid']))}">{$item['catename']}</a>
+  {/loop}
+
+
+</div>
+
+</div>
+
+
+  <div class="card">
+    <div class="card-header">Рекомендуемое к прочтению</div>
+    <div class="card-body">
+<div class="commlist">
+<ul>
+{loop $arrRecommend $key $item}
+<li><a href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{$item['title']}</a></li>
+{/loop}
+</ul>
+</div>
+</div>
+</div>
+
+  <div class="card">
+    <div class="card-header">Популярное за неделю</div>
+    <div class="card-body">
+<div class="commlist">
+<ul>
+{loop $arrHot7 $key $item}
+<li><a href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{$item['title']}</a></li>
+{/loop}
+</ul>
+</div>
+</div>
+</div>
+
+  <div class="card">
+    <div class="card-header">Лучшее за месяц</div>
+    <div class="card-body">
+<div class="commlist">
+<ul>
+{loop $arrHot30 $key $item}
+<li><a href="{tsUrl('article','show',array('id'=>$item['articleid']))}">{$item['title']}</a></li>
+{/loop}
+</ul>
+</div>
+</div>
+</div>
+
+
+<!--место для рекламы-->
+{php doAction('gobad','300')}
+
+
+</div>
+
+
+
+
+
+</div>
+</div>
+
+{php include pubTemplate("footer")}

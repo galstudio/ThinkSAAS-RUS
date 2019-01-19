@@ -1,0 +1,14 @@
+{php include pubTemplate("header_admin")}
+<div class="midder">
+    {php include template("admin/menu");}
+    <div class="page">{$pageUrl}</div>
+    <table class="table table-hover">
+        <thead class="thead-light">
+        <tr><th>ID</th><th>ID отправителя</th><th>ID получателя</th><th>Текст</th><th>Время</th><th>Действия</th></tr></thead><tbody>
+        {loop $arrGuestbook $key $item}
+        <tr><td>{$item['id']}</td><td>{$item['userid']}</td><td>{$item['touserid']}</td><td>{php echo tsDecode($item['content'])}</td><td>{$item['addtime']}</td><td><a onclick="return  confirm('Вы уверены, что хотите удалить?')" href="{SITE_URL}index.php?app=user&ac=admin&mg=guestbook&ts=delete&page={$page}&guestid={$item['id']}">Удалить</a></td></tr>
+        {/loop}
+        </tbody>
+    </table>
+</div>
+{php include pubTemplate("footer_admin")}

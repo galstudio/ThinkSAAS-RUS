@@ -1,0 +1,24 @@
+{php include pubTemplate("header")}
+<div class="container">
+    {template menu}
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-2">UID:</dt><dd class="col-sm-9 text-black-50">{$strUser['userid']}</dd>
+                        <dt class="col-sm-2">Пол:</dt><dd class="col-sm-9 text-black-50">{$strUser['sex']}</dd>
+                        <dt class="col-sm-2">О себе:</dt><dd class="col-sm-9 text-black-50">{if $strUser['about']}{$strUser['about']}{else}еще не написал{/if}</dd>
+                        <dt class="col-sm-2">Читаемые:</dt><dd class="col-sm-9 text-black-50"><a href="{tsUrl('user','follow',array('id'=>$strUser['userid']))}">{$strUser['count_follow']}</a></dd>
+                        <dt class="col-sm-2">Читатели:</dt><dd class="col-sm-9 text-black-50"><a href="{tsUrl('user','followed',array('id'=>$strUser['userid']))}">{$strUser['count_followed']}</a></dd>
+                        <dt class="col-sm-2">Интеграция:</dt><dd class="col-sm-9 text-black-50">{$strUser['count_score']}</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            {template userinfo}
+        </div>
+    </div>
+</div>
+{php include pubTemplate("footer")}

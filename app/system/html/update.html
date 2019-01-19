@@ -1,0 +1,23 @@
+{php include pubTemplate("header_admin")}
+<div class="container mt-3">
+<div id="upgrade" class="update">
+</div>
+</div>
+<script>
+//проверка обновлений
+function isupdate(version){
+	$('#upgrade').html('<img src="public/images/loading.gif" />Загрузка…');
+	$.getJSON("https://www.thinksaas.cn/index.php?app=upcenter&ac=find&version="+version+"&callback=?", function(rs){
+		if(rs){
+			$('#upgrade').html('<h1>Ура! Есть новая версия: '+rs.upversion+'</h1><div class="uplog">'+rs.uplog.replace(/\n|\r|(\r\n)|(\u0085)|(\u2028)|(\u2029)/g, "<br />")+'</div><div class="uptime">'+rs.uptime+'</div><div class="alert alert-warning">ВНИМАНИЕ! Обновление этой версии ThinkSAAS приведет к замене файлов с русификацией. Если все же вы решили обновиться, то ОБЯЗАТЕЛЬНО создайте резервную копию сайта и базы данных перед обновлением!</div><div class="mt-3 mb-3"><a id="isauto" class="btn btn-primary" href="index.php?app=system&ac=update&ts=one">Автообновление</a> <a class="btn btn-primary" href="index.php?app=system&ac=update&ts=hand&upid='+rs.upid+'">Обновить вручную</a></div>');
+			if(rs.isauto==0){
+			    $("#isauto").hide();
+            }
+		}else{
+			$('#upgrade').html('<h1>У вас последняя версия</h1><div class="uplog">Нет необходимости обновлять</div></div>');
+		}
+	});
+}
+isupdate("{$TS_CF['info']['version']}");
+</script>
+{php include pubTemplate("footer_admin")}

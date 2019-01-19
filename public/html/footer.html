@@ -1,0 +1,40 @@
+<div class="container">
+{php doAction('pub_footer_top')}
+<!--Нижний рекламный слот-->
+{php doAction('gobad','pub_footer')}
+<!--/Нижний рекламный слот-->
+</div>
+<div class="footer">
+<p class="text-dark fs14">
+<a class="text-secondary" href="{tsUrl('home','info',array('id'=>'1'))}">Ссылка 1</a> |
+<a class="text-secondary" href="{tsUrl('home','info',array('id'=>'2'))}">Ссылка 2</a> |
+<a class="text-secondary" href="{tsUrl('home','info',array('id'=>'3'))}">Ссылка 3</a> |
+<a class="text-secondary" href="{tsUrl('home','info',array('id'=>'4'))}">Ссылка 4</a> |
+<a class="text-secondary" href="{tsUrl('home','info',array('id'=>'5'))}">Ссылка 5</a> |
+<a class="text-secondary" href="{tsUrl('home','theme')}">Ссылка 6</a>
+</p>
+<p class="fs12 text-secondary">
+       Copyright ©  {php echo date('Y')}   <a class="text-secondary" target="_blank" href="{SITE_URL}">{$GLOBALS['TS_SITE'][site_title]}</a> {$GLOBALS['TS_SITE']['site_icp']}
+</p>
+<p class="fs12">
+    Powered by
+    <a target="_blank" class="text-secondary" title="Сообщество открытого исходного кода" href="{$GLOBALS['TS_CF'][info][url]}">{$GLOBALS['TS_CF'][info][name]}</a>
+    {$GLOBALS['TS_CF']['info']['version']} Processed in {$GLOBALS['TS_CF']['runTime']} second(s)
+</p>
+</div>
+<script>
+    var siteUid={php echo intval($GLOBALS['TS_USER']['userid'])}; //ID
+</script>
+{if intval($GLOBALS['TS_USER']['userid'])}
+<script src="{SITE_URL}public/js/imbox/imbox.js" type="text/javascript"></script>
+<script>
+evdata(siteUid);
+</script>
+{/if}
+<script src="{SITE_URL}public/js/common.js" type="text/javascript"></script>
+{if is_file('app/'.$GLOBALS['TS_URL']['app'].'/js/extend.func.js')}
+<script src="{SITE_URL}app/{$GLOBALS['TS_URL']['app']}/js/extend.func.js" type="text/javascript"></script>
+{/if}
+{php doAction('pub_footer')}
+</body>
+</html>

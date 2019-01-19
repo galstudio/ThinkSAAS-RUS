@@ -1,0 +1,116 @@
+{php include pubTemplate("header")}
+
+<script>
+$(document).ready(function() {
+
+//первый уровень
+$('#cateid').change(function(){
+	$("#select2").html('<img src="'+siteUrl+'public/images/loading.gif" />');
+	var cateid = $(this).children('option:selected').val();  //выбор значения (select)
+
+	if(cateid==0){
+		$("#select2").html('');
+		$("#select3").html('');
+	}else{
+		$("#select3").html('');
+		$.ajax({
+			type: "GET",
+			url:  "{SITE_URL}index.php?app=group&ac=cate&ts=two&cateid="+cateid,
+			success: function(msg){
+				$("#select2").html(msg);
+
+				//второй уровень
+				$('#cateid2').change(function(){
+					$("#select3").html('<img src="'+siteUrl+'public/images/loading.gif" />');
+					var cateid2 = $(this).children('option:selected').val();  //выбор значения (select)
+
+					if(cateid2 == 0){
+						$("#select3").html('');
+					}else{
+
+						//ajax
+						$.ajax({
+							type: "GET",
+							url:  "{SITE_URL}index.php?app=group&ac=cate&ts=three&cateid2="+cateid2,
+							success: function(msg){
+								$('#select3').html(msg);
+							}
+						});
+
+					}
+
+				});
+
+			}
+		});
+
+	}
+
+});
+
+});
+</script>
+
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">Главная</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group')}">Группы</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup[groupname]}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Выбор категории</li>
+        </ol>
+    </nav>
+
+    <div class="card">
+        <div class="card-body">
+{template edit_xbar}
+
+
+
+<div class="row">
+<div class="col-md-8">
+
+
+<form method="post" action="{SITE_URL}index.php?app=group&ac=cate&ts=do">
+<select  id="cateid" name="cateid">
+<option value="0">Выберите категорию</option>
+{loop $arrCate $key $item}
+<option value="{$item['cateid']}">{$item['catename']}</option>
+{/loop}
+</select>
+
+<span id="select2"></span>
+<span id="select3"></span>
+
+
+    <hr />
+
+<input type="hidden" name="groupid" value="{$strGroup['groupid']}" />
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+<button class="btn btn-sm btn-info" type="submit">Сохранить</button>
+    <a class="btn btn-sm text-black-50" href="{tsUrl('group','show',array('id'=>$strGroup[groupid]))}">Отмена</a>
+</form>
+
+
+<div>
+{if $strCate}
+Категория: {$strCate['catename']}
+
+{/if}
+{if $strCate2}
+→ Подкатегория: {$strCate2['catename']}
+
+{/if}
+{if $strCate3}
+→ Подкатегория: {$strCate3['catename']}
+
+{/if}
+</div>
+</div>
+<div class="col-md-4"></div>
+</div>
+</div>
+</div>
+</div>
+{php include pubTemplate("footer")}

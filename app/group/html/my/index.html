@@ -1,0 +1,97 @@
+{php include pubTemplate("header")}
+<div class="container">
+
+
+
+    <div class="row">
+
+
+        <div class="col-md-3">
+
+            <div class="my_left">
+
+                {php include pubTemplate("my")}
+
+            </div>
+
+        </div>
+        <div class="col-md-9">
+
+
+
+            <div class="card">
+            <div class="card-header">Созданные группы</div>
+            <div class="card-body">
+
+
+
+
+                <div class="row">
+
+                    {loop $arrCreateGroup $key $item}
+                    <div class="col-sm-6 col-md-2">
+                        <div class="thumbnail">
+                            <a href="{tsUrl('group','show',array('id'=>$item['groupid']))}"><img class="rounded" src="{$item['photo']}" style="max-width: 100%;"></a>
+                            <div class="caption">
+                                <div class="title-cut text-center">{$item['groupname']}</div>
+
+                                <p><a href="{tsUrl('group','edit',array('ts'=>'base','groupid'=>$item['groupid']))}" class="btn btn-outline-secondary btn-block btn-sm" role="button">Управление</a> </p>
+                            </div>
+                        </div>
+                    </div>
+                    {/loop}
+
+
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+
+
+
+            <div class="card">
+                <div class="card-header">Участник группы</div>
+                <div class="card-body">
+                <div class="row">
+
+
+
+
+                    {loop $arrGroup $key $item}
+                    <div class="col-sm-6 col-md-2">
+                        <div class="thumbnail">
+                            <a href="{tsUrl('group','show',array('id'=>$item['groupid']))}"><img src="{$item['photo']}" alt="{$item['groupname']}" class="rounded" style="max-width: 100%;"></a>
+                            <div class="caption">
+                                <div class="title-cut text-center">{$item['groupname']}</div>
+
+                                {if $strUser['userid']!=$item['userid']}
+                                <p><a class="btn btn-outline-secondary btn-block btn-sm" href="javascript:void('0')" onclick="exitGroup('{$item[';groupid;']}';)">Выход</a></p>
+                                {else}
+                                <p><a class="btn btn-outline-secondary btn-block btn-sm" href="{tsUrl('group','add',array('id'=>$item['groupid']))}" >Написать</a></p>
+                                {/if}
+                            </div>
+                        </div>
+                    </div>
+                    {/loop}
+
+                </div>
+                </div>
+            </div>
+
+
+
+
+
+
+        </div>
+        </div>
+
+
+
+
+</div>
+{php include pubTemplate("footer")}

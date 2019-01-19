@@ -1,0 +1,102 @@
+{php include pubTemplate("header")}
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">Главная</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group')}">Группы</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup[groupname]}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Редактирование группы</li>
+        </ol>
+    </nav>
+
+
+
+    <div class="card">
+        <div class="card-body">
+
+{template edit_xbar}
+
+<form class="form-horizontal" method="post" action="{SITE_URL}index.php?app=group&ac=edit&ts=basedo&groupid={$groupid}">
+
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Название группы</label>
+    <div class="col-sm-6">
+     <input  class="form-control" type="text" value="{$strGroup[groupname]}" name="groupname">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Описание группы</label>
+    <div class="col-sm-6">
+     <textarea style="min-height:100px;" class="form-control" name="groupdesc">{$strGroup[groupdesc]}</textarea>
+    </div>
+  </div>
+
+    <div class="form-group">
+    <label class="col-sm-2 control-label">Теги группы</label>
+    <div class="col-sm-6">
+    <input  class="form-control" type="text" value="{$strGroup[tag]}" name="tag"> (разделяйте запятой, желательно латинские буквы)
+    </div>
+  </div>
+
+
+    <div class="form-group">
+    <label class="col-sm-2 control-label">Вступление в группу:</label>
+    <div class="col-sm-10">
+        <input {if $strGroup[joinway]=='0'}checked="select"{/if} name="joinway" type="radio" value="0" /> свободно (открытая группа)
+        <br /><input {if $strGroup[joinway]=='1'}checked="select"{/if}  name="joinway" type="radio" value="1" /> нет приема (закрытая группа)
+        <br /><input {if $strGroup[joinway]=='2'}checked="select"{/if}  name="joinway" type="radio" value="2" /> по заявке (необходимо пройти проверку)
+
+        {if $TS_APP['ispayjoin']==1}
+        <br /><input {if $strGroup[joinway]=='3'}checked="select"{/if}  name="joinway" type="radio" value="3" /> платное вступление <input type="number" name="price" value="{if $strGroup['price']}{$strGroup['price']}{else}10{/if}" /> золотые монеты
+        {/if}
+
+    </div>
+  </div>
+
+    <div class="form-group">
+    <label class="col-sm-2 control-label">Публикации:</label>
+    <div class="col-sm-10">
+  <input {if $strGroup[ispost]=='0'}checked="select"{/if} type="radio" name="ispost" value="0" /> разрешить публикации <input {if $strGroup[ispost]=='1'}checked="select"{/if} type="radio" name="ispost" value="1" /> отключить публикации
+    </div>
+  </div>
+
+
+    <div class="form-group">
+    <label class="col-sm-2 control-label">Обзор публикаций:</label>
+    <div class="col-sm-10">
+ <input {if $strGroup[isopen]=='0'}checked="select"{/if} type="radio" name="isopen" value="0" /> Свободный <input {if $strGroup[isopen]=='1'}checked="select"{/if} type="radio" name="isopen" value="1" /> Только участники группы
+    </div>
+  </div>
+
+    <div class="form-group">
+    <label class="col-sm-2 control-label">Комментарии:</label>
+    <div class="col-sm-10">
+<input {if $strGroup['ispostaudit']=='1'}checked="select"{/if} type="radio" name="ispostaudit" value="1" /> Модерировать <input {if $strGroup['ispostaudit']=='0'}checked="select"{/if} type="radio" name="ispostaudit" value="0" /> Без модерации
+    </div>
+  </div>
+
+
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+
+        <hr />
+
+
+
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+      <button type="submit" class="btn btn-sm btn-info">Сохранить</button>
+
+        <a class="btn btn-sm text-black-50" href="{tsUrl('group','show',array('id'=>$strGroup[groupid]))}">Отмена</a>
+    </div>
+  </div>
+</form>
+
+</div>
+</div>
+
+</div>
+{php include pubTemplate("footer")}

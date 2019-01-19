@@ -1,0 +1,127 @@
+{php include pubTemplate("header")}
+<div class="container">
+
+
+    <nav aria-label="breadcrumb" class="position-relative">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">Главная</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Группы</li>
+        </ol>
+
+        <a class="btn btn-sm btn-info position-absolute" style="z-index: 100;top:6px;right:6px;" href="{tsUrl('group','create')}">Создать группу</a>
+
+    </nav>
+
+
+
+
+
+<div class="row">
+
+<div class="col-md-8">
+
+
+
+    <div class="card">
+        <div class="card-body">
+
+
+            <div class="mb-3">
+                <a class="btn btn-sm {if $cateid==0}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group')}">Группы</a>
+                {loop $arrGroupCate $key $item}
+                <a class="btn btn-sm {if $cateid==$item['cateid']}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group','index',array('cateid'=>$item['cateid']))}">{$item['catename']}</a>
+                {/loop}
+
+            </div>
+
+
+            <hr />
+
+
+            <div class="row">
+                {loop $arrGroup $key $item}
+                <div class="col-md-6">
+
+                    <div class="sub-item">
+                        <div class="pic">
+                            <a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">
+                                <img class="rounded" src="{if $item[photo]}{php echo tsXimg($item['photo'],'group','120','120',$item['path'],1)}{else}{SITE_URL}public/images/group.jpg{/if}" alt="{$item[groupname]}" />
+                            </a>
+
+                        </div>
+                        <div class="info">
+                            <a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a><small class="text-black-50"><i class="fal fa-users ml-3"></i> {$item[count_user]}</small>
+                            <p class="content">{$item[groupdesc]}</p>
+                        </div>
+                    </div>
+
+                </div>
+                {/loop}
+            </div>
+
+
+
+
+            <div class="mt-3">{$pageUrl}</div>
+
+
+
+
+</div>
+</div>
+</div>
+
+<div class="col-md-4">
+
+
+    <div class="card">
+        <div class="card-header">Популярные записи</div>
+        <div class="card-body">
+
+            <div class="group_index_right_hottopic">
+
+                <ul>
+                    {loop $arrTopic $key $item}
+                    <li>
+                        <div><a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item['title']}</a></div>
+
+
+                        <div class="info">
+                            <div class="left">Группа <a title="{$item['group']['groupname']}" href="{tsUrl('group','show',array('id'=>$item['groupid']))}">«{$item['group']['groupname']}»</a></div>
+                            <div class="right"><i class="far fa-comment ml-3"></i> {$item['count_comment']}</div>
+                        </div>
+
+                    </li>
+                    {/loop}
+                </ul>
+            </div>
+
+
+</div>
+</div>
+
+
+
+    <div class="card">
+        <div class="card-header">Новые группы</div>
+        <div class="card-body">
+            <div class="commlist">
+                <ul>
+                    {loop $arrNewGroup $key $item}
+                   <li>
+                       <a href="{tsUrl('group','show',array('id'=>$item[groupid]))}">{$item[groupname]}</a> <span class="c9 fs12"><i class="fal fa-users ml-3"></i> {$item[count_user]}</span>
+                   </li>
+                    {/loop}
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+<!--место для рекламы-->
+{php doAction('gobad','300')}
+
+</div>
+</div>
+</div>
+{php include pubTemplate("footer")}

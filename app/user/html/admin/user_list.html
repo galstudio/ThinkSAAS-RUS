@@ -1,0 +1,37 @@
+{php include pubTemplate("header_admin")}
+<div class="midder">
+{php include template("admin/menu");}
+<div>
+<form method="get" action="{SITE_URL}index.php">
+<input type="hidden" name="app" value="user" />
+<input type="hidden" name="ac" value="admin" />
+<input type="hidden" name="mg" value="user" />
+<input type="hidden" name="ts" value="list" />
+UID：<input type="text" name="userid" /> Логин: <input type="text" name="username" /> <input type="submit" value="Найти" />
+<a class="btn" href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=clean"> — удалить заблокированных пользователей одним кликом</a>
+</form>
+</div>
+<div class="page">{$pageUrl}</div>
+<table class="table table-hover">
+    <thead class="thead-light">
+    <tr><th>UID</th><th>Email</th><th>Логин</th><th>Регистрация</th><th>IP</th><th>За регистрацию</th><th>Верификация</th><th>Действия</th></tr>
+    </thead>
+    <tbody>
+    {loop $arrAllUser $key $item}
+    <tr class="odd"><td>{$item[userid]}</td><td>{$item[email]}</td><td>{$item[username]}</td><td>{php echo date('Y-m-d H:i:s',$item[addtime])}</td><td>{$item['ip']}</td><td>{$item['comefrom']}</td><td>{if $item['isverify']==1}<i class="far fa-at" style="padding-top:10px;" title="Email подтвержден"></i>{else}<font color="red"><i class="far fa-at" style="padding-top:10px;" title="Email не подтвержден"></i></a>{/if}</td><td><a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=isrenzheng&&userid={$item[userid]}">{if $item[isrenzheng]=='0'}<i class="far fa-award" title="Не проверен"></i>{else}<font color="green"><i class="far fa-award" title="Проверен"></i></font>{/if}</a> <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=view&userid={$item[userid]}"><i class="fal fa-info-circle" title="Детали"></i></a> <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=isenable&&userid={$item[userid]}&page={$page}">{if $item[isenable]=='0'}<i class="fal fa-lock-open" title="Заблокировать"></i>{else}<font color="red"><i class="fal fa-lock-alt" title="Разблокировать"></i></font>{/if}</a> <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=pwd&userid={$item[userid]}"><i class="fal fa-key" title="Изменить пароль"></i></a> <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=face&userid={$item[userid]}"><i class="fal fa-user-circle" title="Удалить аватар"></i></a>
+ {if $TS_USER['userid']==1 && $item['userid']!=1}
+            <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=deldata&userid={$item[userid]}"><i class="fal fa-trash-alt" title="Удалить пользователя"></i></a> <a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=admin&userid={$item['userid']}&token={$_SESSION['token']}">
+                {if $item['isadmin']==0}
+                <i class="fal fa-address-card"  title="Сделать администратором"></i>
+                {elseif $item['isadmin']==1}
+                <font color="red"><i class="fal fa-user"  title="Разжаловать в пользователи"></i></font>
+                {/if}
+            </a>
+            {/if}
+        </td>
+    </tr>
+    {/loop}
+    </tbody>
+</table>
+</div>
+{php include pubTemplate("footer_admin")}

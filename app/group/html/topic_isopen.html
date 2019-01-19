@@ -1,0 +1,42 @@
+{php include pubTemplate("header")}
+
+<div class="container">
+
+
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">Главная</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group')}">Группы</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group','show',array('id'=>$strGroup['groupid']))}">{$strGroup['groupname']}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{$strTopic[title]}</li>
+        </ol>
+    </nav>
+
+
+
+    <div class="card">
+        <div class="card-body">
+
+
+
+      <div class="alert alert-info">
+
+          Эту запись группы могут просматривать только её участники!
+
+          {if $strGroup['joinway']==3}
+          <a class="btn btn-success" href="javascript:void('0');" onclick="joinGroup('{$strGroup['groupid']}');">Нужно заплатить <font color="orange" style="font-size: 16px;">{$strGroup['price']} золотых монет</font>, чтобы вступить в группу</a>
+          {else}
+          <a class="btn btn-success" href="javascript:void('0');" onclick="joinGroup('{$strGroup['groupid']}');">Вступить</a>
+          {/if}
+      </div>
+
+
+
+</div>
+</div>
+
+
+
+</div>
+{php include pubTemplate("footer")}

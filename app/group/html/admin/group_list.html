@@ -1,0 +1,67 @@
+{php include pubTemplate("header_admin")}
+
+
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<div class="page">{$pageUrl}</div>
+
+<table class="table table-hover">
+
+    <thead class="thead-light fs14">
+    <tr>
+        <th>ID</th>
+        <th>Название</th>
+        <th>Описание</th>
+        <th>Публикации</th>
+        <th>Участники</th>
+        <th>Создана</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+
+
+    <tbody class="fs12">
+
+{loop $arrAllGroup $key $item}
+<tr>
+    <td>{$item[groupid]}</td>
+    <td><a href="{tsUrl('group','show',array('id'=>$item['groupid']))}" target="_blank">[{tsTitle($item['groupname'])}]</a></td>
+    <td>{php echo cututf8(t($item[groupdesc]),0,20)}</td><td>{$item[count_topic]}</td>
+    <td>{$item[count_user]}</td>
+    <td>{php echo date('Y-m-d H:i:s',$item[addtime])}</td>
+    <td>
+
+
+        <a href="{SITE_URL}index.php?app=group&ac=admin&mg=group&ts=isaudit&groupid={$item[groupid]}">
+            {if $item[isaudit]}
+            <font color="red">Проверить</font>
+            {else}
+            <font color="green">Проверена</font>
+            {/if}
+        </a>
+
+         |
+
+        <a href="{SITE_URL}index.php?app=group&ac=admin&mg=group&ts=isrecommend&groupid={$item[groupid]}">{if $item[isrecommend]=='0'}[Рекомендовать]{else}<font color="green">[Рекомендована]</font>{/if}</a>
+
+        |
+
+        <a href="{SITE_URL}index.php?app=group&ac=admin&mg=upuser&groupid={$item[groupid]}">[Обновить]</a>
+
+    |
+
+        <a target="_blank" href="{SITE_URL}index.php?app=group&ac=edit&groupid={$item[groupid]}&ts=base">[Правка]</a>
+
+        |
+
+        <a href="{SITE_URL}index.php?app=group&ac=admin&mg=group&ts=del&groupid={$item[groupid]}"><font color="red">[Удалить]</font></a></td></tr>
+{/loop}
+
+    </tbody>
+
+</table>
+
+</div>
+{php include pubTemplate("footer_admin")}

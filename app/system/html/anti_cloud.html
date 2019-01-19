@@ -1,0 +1,39 @@
+{php include pubTemplate("header_admin")}
+<!--main-->
+<div class="midder">
+{template anti_menu}
+<div>
+<h6>Отправка спам-слов на удаленный сервер</h6>
+<p>Если у вас есть спам-слова, то вы можете отправить их на сервер ThinkSAAS, введя ниже. Они будут помещены в общую базу спама.</p>
+<table class="table table-hover">
+    <tbody class="fs12">
+<tr>
+<td width="150">Спам-слово:</td><td>
+
+<input id="spamword" type="text" name="word" />
+<input type="button" value="Отправить" onclick="postword();" />
+</td>
+</tr>
+<tr><td>Локальная база:</td><td><a href="{SITE_URL}index.php?app=system&ac=spam&ts=get">Обновить локальную базу</a></td></tr>
+    </tbody>
+</table>
+</div>
+</div>
+<script>var siteUrl = '{SITE_URL}';</script>
+<script src="{SITE_URL}public/js/jquery.min.js" type="text/javascript"></script>
+<script>
+function postword(){
+	var word = $("#spamword").val();
+	if(word==''){
+		alert('Вы должны указать слово!');return false;
+	}else{
+		$.post("https://www.thinksaas.cn/index.php?app=service&ac=spam", { 'word': word},
+		function(rs){
+			alert('Слово успешно добавлено! Спасибо за ваше предложение!');
+			$("#spamword").val('');
+			return false;
+		})
+	}
+}
+</script>
+{php include pubTemplate("footer_admin")}

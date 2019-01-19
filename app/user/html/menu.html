@@ -1,0 +1,45 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{SITE_URL}">Главная</a></li>
+        <li class="breadcrumb-item"><a href="{tsUrl('user')}">Пользователь</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{$strUser['username']}</li>
+    </ol>
+</nav>
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="media">
+                    <img class="mr-3 rounded-circle" src="{$strUser[face]}" alt="{$strUser[username]}" width="56">
+                    <div class="media-body">
+                        <h1 class="h4 fw400">{$strUser['username']} <a href="{tsUrl('user','verify')}">{if $strUser['isverify']==1}<i class="far fa-at" style="color: blue;padding-top:10px;" title="Email подтвержден"></i>{else}<i class="far fa-at" style="padding-top:10px;" title="Email не подтвержден"></i>{/if}</a>
+                            {if $strUser['isrenzheng']==1}<i class="far fa-award" style="color: blue;padding-top:10px;" title="Верифицирован"></i>{else}<i class="far fa-award" style="padding-top:10px;" title="Не верифицирован"></i>{/if}</h1>
+                        <div class="text-black-50">
+                            {if $strUser['signed']}{$strUser['signed']}{else}нет подписи{/if}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="mt-2 text-right">
+                    {if $strUser[userid] != $TS_USER[userid]}
+                    {if $strUser[isfollow]}
+                    <a class="btn btn-outline-secondary btn-sm" href="javascript:void('0');" onclick="unfollow('{$strUser['userid']}','{$_SESSION['token']}');">Отписаться</a>
+                    {else}
+                    <a class="btn btn-info btn-sm" href="javascript:void('0')" onclick="follow('{$strUser['userid']}','{$_SESSION['token']}');">Читать</a>
+                    {/if}
+                    <a href="{tsUrl('user','message',array(ts=>add,touserid=>$strUser[userid]))}" rel="nofollow" class="btn btn-outline-secondary btn-sm">Сообщение</a>
+                    {/if}
+                </div>
+            </div>
+        </div>
+        <div class="border-top pt-3 mt-3">
+            <a class="btn btn-sm {if $ac=='space'}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('user','space',array('id'=>$strUser['userid']))}">Информация</a>
+            <a class="btn btn-sm {if $ac=='topic'}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('user','topic',array('id'=>$strUser['userid']))}">Записи</a>
+            <a class="btn btn-sm {if $ac=='group'}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('user','group',array('id'=>$strUser['userid']))}">Группы</a>
+            <a class="btn btn-sm {if $ac=='guestbook'}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('user','guestbook',array('id'=>$strUser['userid']))}">Сообщение</a>
+            <a class="btn btn-sm {if $ac=='followed'}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('user','followed',array('id'=>$strUser['userid']))}">Читаемые</a>
+            <a class="btn btn-sm {if $ac=='follow'}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('user','follow',array('id'=>$strUser['userid']))}">Читает</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,227 @@
+{php include pubTemplate("header")}
+<div class="container">
+
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">Главная</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('group')}">Группы</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{$strGroup[groupname]}</li>
+        </ol>
+    </nav>
+
+    <div class="card">
+        <div class="group_show">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="media">
+                        <img class="mr-3 rounded" src="{$strGroup[photo]}" alt="{$strGroup[groupname]}" width="70">
+                        <div class="media-body">
+                            <h1 class="mt-0 fw400 fs18 text-light">{$strGroup[groupname]}</h1>
+                            <div class="fs12 text-light fw300">
+
+                                <i class="fal fa-clipboard"></i><span class="mr-2"> {$strGroup['count_topic']}</span>
+                                <i class="fal fa-users"></i> <span>{$strGroup['count_user']}</span>
+
+                            </div>
+
+                            <div class="fs12 text-light fw300 mt-1">
+
+                                <i class="fal fa-clock mr-2"></i><span class="mr-2">{php echo date('Y-m-d',$strGroup[addtime])}</span>
+
+                                <i class="fal fa-crown mr-2"></i><a class="mr-2 text-light" href="{tsUrl('user','space',array('id'=>$strLeader[userid]))}"  rel="face" uid="{$strLeader['userid']}">{$strLeader[username]}</a>
+                                {if $arrGroupAdminUser}
+                                <i class="fal fa-user-crown mr-2"></i>
+                                {loop $arrGroupAdminUser $key $item}
+                                <a class="mr-2 text-light" href="{tsUrl('user','space',array('id'=>$item['userid']))}">{$item['username']}</a>
+                                {/loop}
+                                {/if}
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="col-md-4">
+
+
+
+                    <div class="join">
+                        {if $isGroupUser > 0 && $TS_USER[userid] != $strGroup[userid]}
+                        <span>Я в этой группе {$strGroup[role_user]} | <a href="javascript:void('0')" onclick="exitGroup('{$strGroup['groupid']}')">Выйти</a></span>
+                        {elseif $isGroupUser > 0 && $TS_USER[userid] == $strGroup[userid]}
+                        <span>Я в этой группе {$strGroup[role_leader]}</span>
+                        {elseif $strGroup[joinway] == '0'}
+                        <span><a class="btn btn-success btn-sm" href="javascript:void('0');" onclick="joinGroup('{$strGroup['groupid']}');">Вступить</a></span>
+                        {elseif $strGroup[joinway] == '2'}
+                        <span><a class="btn btn-success btn-sm" href="javascript:void('0')" onclick="joinGroup('{$strGroup['groupid']}')">Подать заявку</a></span>
+
+                        {elseif $strGroup['joinway']==3}
+
+                        <span><a class="btn btn-success btn-sm" href="javascript:void('0')" onclick="joinGroup('{$strGroup['groupid']}')">Вступить за <font color="orange" style="font-size: 16px;">{$strGroup['price']}</font> золота</a></span>
+
+                        {else}
+                        <span>Группа закрыта</span>
+                        {/if}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+
+            <div class="text-black-50">{php echo nl2br($strGroup[groupdesc])}</div>
+
+            {if $strGroup ['tags']}
+            <div class="mt-2">
+                {loop $strGroup['tags'] $key $item}
+                <a class="badge badge-secondary mr-2 fw300" href="{tsUrl('group','tag',array('id'=>urlencode($item['tagname'])))}">{$item['tagname']}</a>
+                {/loop}
+            </div>
+            {/if}
+
+        </div>
+    </div>
+    <div class="row">
+<div class="col-md-8">
+
+    {if $strGroup['isopen']==1 && $isGroupUser==''}
+
+    <div class="alert alert-info">Прежде чем получить доступ к содержимому публикации, вам необходимо сначла вступить в группу!</div>
+
+    {elseif $strGroup['isopen']==1 && $TS_APP['ispayjoin']==1 && $isGroupUser['endtime']!='0000-00-00' && $isGroupUser['endtime']<date('Y-m-d')}
+    <div class="alert alert-info">Ваша платное участие в группе закончилось! Пожалуйста, свяжитесь с руководителем группы, чтобы возобновить участие. После чего вы можете получить доступ к содержанию публикации.</div>
+    {else}
+
+    <div class="card" >
+        <div class="card-body" style="position: relative;">
+
+
+            <div style="position: absolute;right: 20px;top: 20px;"><a class="btn btn-info btn-sm" href="{tsUrl('group','add',array('id'=>$strGroup[groupid]))}">Написать</a></div>
+
+
+            <div class="mb-3">
+                <a class="btn btn-sm {if $typeid==0}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group','show',array('id'=>$strGroup[groupid]))}">Группа</a>
+                {loop $arrTopicType $key $item}
+                <a class="btn btn-sm {if $typeid==$item['typeid']}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group','show',array('id'=>$strGroup['groupid'],typeid=>$item['typeid']))}">{$item['typename']}</a>
+                {/loop}
+            </div>
+            <hr />
+<div class="topic_list">
+<ul>
+
+{loop $arrTopic $key $item}
+<li>
+<div class="userimg">
+<a href="{tsUrl('user','space',array('id'=>$item[user][userid]))}">
+    <img class="rounded-circle" src="{$item[user][face]}" width="32" height="32" alt="{$item['user']['username']}" title="{$item['user']['username']}" />
+</a>
+</div>
+
+<div class="topic_title">
+<div class="title">
+
+{if $item['label']}<span class="badge badge-danger fw300">{tsTitle($item['label'])}</span>{/if}
+
+{if $item['typeid'] != 0}<a href="{tsUrl('group','show',array('id'=>$item['groupid'],typeid=>$item['typeid']))}" style="color:grey;">[Блог «{$item['typename']}»]</a>{/if}
+
+
+<a href="{tsUrl('group','topic',array('id'=>$item['topicid']))}">{$item['title']}</a>
+
+
+{if $item['istop']=='1'}
+<img src="{SITE_URL}public/images/ding.png" width="14" height="14" title="[Закрепить]" alt="[Закрепить]" />
+{/if}
+
+{if $item['isposts'] == '1'}
+<img src="{SITE_URL}public/images/posts.gif" title="[Качество]" alt="[Качество]" />
+{/if}
+
+
+</div>
+<div class="topic_info">
+<span style="float:left;">
+{php echo getTime($item[uptime],time())}
+</span>
+
+<span style="float:right;">
+<a href="{tsUrl('user','space',array('id'=>$item[userid]))}"  rel="face" uid="{$item['user']['userid']}">{$item[user][username]}</a>
+
+{if $item[count_comment]>0}<a class="rank" style="color:#FFFFFF;" href="{tsUrl('group','topic',array('id'=>$item[topicid]))}">{$item[count_comment]}</a>{/if}
+</span>
+</div>
+</div>
+<div class="clear"></div>
+</li>
+{/loop}
+
+</ul>
+</div>
+
+
+<div class="mt-3">{$pageUrl}</div>
+
+
+</div>
+
+
+</div>
+
+    {/if}
+
+
+
+</div>
+
+
+<div class="col-md-4">
+
+
+    <div class="card">
+        <div class="card-header">Участники группы <small class="float-right"><a class="text-black-50" href="{tsUrl('group','user',array('id'=>$strGroup['groupid']))}">показать всех</a></small></div>
+        <div class="card-body">
+
+
+
+            <div class="row">
+                {loop $arrGroupUser $key $item}
+                <div class="col-3 text-light mb-3">
+                    <a href="{tsUrl('user','space',array('id'=>$item[userid]))}"><img class="rounded-circle" src="{$item[face]}" width="48" height="48" alt="{$item[username]}" title="{$item[username]}" /></a>
+                    <div class="title-cut fs12 text-black-50 mt-1 text-center"><a href="{tsUrl('user','space',array('id'=>$item[userid]))}">{$item[username]}</a></div>
+                </div>
+                {/loop}
+            </div>
+
+
+</div>
+</div>
+
+
+
+
+    {if $TS_USER['userid'] == $strGroup['userid'] || $TS_USER['isadmin']=='1'}
+    <div class="card">
+        <div class="card-header">Управление группой</div>
+        <div class="card-body">
+
+<p class="pl2">&gt; <a href="{tsUrl('group','edit',array(groupid=>$strGroup[groupid],ts=>base))}">Настройка группы</a></p>
+
+<p class="pl2">&gt; <a href="{tsUrl('group','audit',array('groupid'=>$strGroup[groupid]))}">На модерации</a> ({$strGroup['count_topic_audit']})</p>
+
+
+</div>
+</div>
+
+    {/if}
+
+<div class="clear"></div>
+<!--место для рекламы-->
+{php doAction('gobad','300')}
+
+
+</div>
+</div>
+</div>
+
+{php include pubTemplate("footer")}

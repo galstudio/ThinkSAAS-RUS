@@ -1,0 +1,28 @@
+<?php
+defined('IN_TS') or die('Access Denied.');
+//все группы
+$page = isset($_GET['page']) ? intval($_GET['page']) : '1';
+$url = tsUrl('group','all',array('page'=>''));
+$lstart = $page*20-20;
+$arrGroups = $db->fetch_all_assoc("select groupid from ".dbprefix."group order by isrecommend desc limit $lstart,20");
+foreach($arrGroups as $key=>$item){
+	$arrData[] = $new['group']->getOneGroup($item['groupid']);
+}
+foreach($arrData as $key=>$item){
+	$arrGroup[] =  $item;
+	$arrGroup[$key]['groupdesc'] = cututf8(t($item['groupdesc']),0,35);
+}
+$groupNum = $db->once_fetch_assoc("select count(groupid) from ".dbprefix."group");
+$pageUrl = pagination($groupNum['count(groupid)'], 20, $page, $url);
+if($page > 1){
+	$title = 'Все группы - страница '.$page.'';
+}else{
+	$title = 'Все группы';
+}
+
+$arrTopic = $db->fetch_all_assoc("select topicid,title,count_comment from ".dbprefix."group_topic order by count_comment desc limit 10");
+
+//последние 10 групп
+$arrNewGroup = $new['group']->getNewGroup('10');
+
+include template('all');

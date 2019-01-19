@@ -1,0 +1,20 @@
+
+<div class="mb-3">
+    <a class="btn btn-sm {if $ts=="base"}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'base'))}">Настройки</a>
+    <a class="btn btn-sm {if $ts=="icon"}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'icon'))}">Логотип</a>
+    <a class="btn btn-sm {if $ts=="type"}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'type'))}">Блоги</a>
+    <a class="btn btn-sm {if $ts=="cate"}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'cate'))}">Категории</a>
+    <a class="btn btn-sm {if $ts=="transfer"}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'transfer'))}">Передача</a>
+
+
+    {if $strGroup['joinway']==2}
+    <a class="btn btn-sm {if $ts=="useraudit"}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'useraudit'))}">Запросы</a>
+    {/if}
+
+    <a class="btn btn-sm {if $ts=="isadmin"}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'isadmin'))}">Администраторы</a>
+    <a class="btn btn-sm {if $ts=="user"}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('group','edit',array('groupid'=>$strGroup['groupid'],'ts'=>'user'))}">Участники</a>
+
+</div>
+
+
+<hr />

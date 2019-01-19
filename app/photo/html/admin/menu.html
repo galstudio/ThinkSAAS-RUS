@@ -1,0 +1,8 @@
+<h6>Управление альбомами</h6>
+<div class="tabnav">
+<ul>
+<li {if $mg=='options'}class="select"{/if}><a href="{SITE_URL}index.php?app=photo&ac=admin&mg=options">Опции</a></li>
+<li {if $mg=='album'}class="select"{/if}><a href="{SITE_URL}index.php?app=photo&ac=admin&mg=album&ts=list">Список альбомов</a></li>
+<li {if $mg=='photo'}class="select"{/if}><a href="{SITE_URL}index.php?app=photo&ac=admin&mg=photo&ts=list">Список изображений</a></li>
+</ul>
+</div>

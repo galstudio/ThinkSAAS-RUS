@@ -1,0 +1,116 @@
+<?php include 'header.html'; ?>
+<style>
+.step {
+    margin: 20px 0 15px;
+}
+.step, th {
+    padding: 0;
+    text-align: left;
+}
+.submit input, .button, .button-secondary {
+    -moz-box-sizing: content-box;
+    border: 1px solid #BBBBBB;
+    border-radius: 15px 15px 15px 15px;
+    color: #464646;
+    cursor: pointer;
+    font-family: "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
+    font-size: 14px !important;
+    line-height: 16px;
+    padding: 6px 12px;
+    text-decoration: none;
+}
+.button:hover, .button-secondary:hover, .submit input:hover {
+    border-color: #666666;
+    color: #000000;
+}
+.button, .submit input, .button-secondary {
+    background:#F2F2F2;
+}
+.button:active, .submit input:active, .button-secondary:active {
+    background: #EEEEEE;
+}
+</style>
+<!--main-->
+<div class="container mt-3 mb-3">
+<div class="card">
+<div class="card-body">
+<div id="notice" class="alert alert-danger" style="display: none;">Важно: ThinkSAAS выпустила новую версию, <a target="_blank" href="https://www.thinksaas.cn/service/down/">Нажмите, чтобы загрузить</a></div>
+<p>Добро пожаловать в мастер установки ThinkSAAS RUS! Для его работы потребуется некоторая информация о вашей системе. Далее следующая информация будет запрашиваться, будьте готовы:</p>
+<ol>
+<li>Имя базы данных</li>
+<li>Логин к е данных</li>
+<li>Пароль к базе данных</li>
+<li>Сервер базы данных</li>
+<li>Префикс таблиц (если вы хотите установить несколько ThinkSAAS RUS в одну базу данных）</li>
+</ol>
+<p>Как правило, большинство провайдеров предоставляют информацию о базе данных. Если вы нет этой информации, то узнайте её перед началом установки…</p>
+<p style="font-weight: bold;">1. Обнаружение необходимых компонентов в среде PHP</p>
+<table class="table table-bordered table-sm">
+    <thead class="thead-light">
+    <tr><th>Компоненты PHP</th><th>Статус</th></tr>
+    </thead>
+    <tbody>
+    <tr><td>dom <span class="text-danger fs12">*обязательно</span></td><td><?php if($e_dom){echo '<span style="color:green;">да</span>';}else{echo '<span style="color:red;">нет</span>';}?></td></tr>
+    <tr><td>mbstring <span class="text-danger fs12">*обязательно</span></td><td><?php if($e_mbstring){echo '<span style="color:green;">да</span>';}else{echo '<span style="color:red;">нет</span>';}?></td></tr>
+    <tr><td>gd <span class="text-danger fs12">*обязательно</span></td><td><?php if($e_gd){echo '<span style="color:green;">да</span>';}else{echo '<span style="color:red;">нет</span>';}?></td></tr>
+    <tr><td>mysql</td><td><?php if($e_mysql){echo '<span style="color:green;">да</span>';}else{echo '<span style="color:red;">нет</span>';}?> (в php7 игнорируется)</td></tr>
+    <tr><td>mysqli <span class="text-danger fs12">*обязательно</span></td><td><?php if($e_mysqli){echo '<span style="color:green;">да</span>';}else{echo '<span style="color:red;">нет</span>';}?></td></tr>
+    <tr><td>openssl <span class="text-danger fs12">*обязательно</span></td><td><?php if($e_openssl){echo '<span style="color:green;">да</span>';}else{echo '<span style="color:red;">нет</span>';}?></td></tr>
+    <tr><td>session <span class="text-danger fs12">*обязательно</span></td><td><?php if($e_session){echo '<span style="color:green;">да</span>';}else{echo '<span style="color:red;">нет</span>';}?></td></tr>
+    <tr><td>SimpleXML <span class="text-danger fs12">*обязательно</span></td><td><?php if($e_SimpleXML){echo '<span style="color:green;">да</span>';}else{echo '<span style="color:red;">нет</span>';}?></td></tr>
+    <!--
+    <tr><td>mcrypt</td><td><?php if($e_mcrypt){echo '<span style="color:green;">да</span>';}else{echo '<span style="color:red;">нет</span>';}?></td></tr>
+    -->
+    <tr><td>json <span class="text-danger fs12">*обязательно</span></td><td><?php if($e_json){echo '<span style="color:green;">да</span>';}else{echo '<span style="color:red;">нет</span>';}?></td></tr>
+    <tr><td>iconv <span class="text-danger fs12">*обязательно</span></td><td><?php if($e_iconv){echo '<span style="color:green;">да</span>';}else{echo '<span style="color:red;">нет</span>';}?></td></tr>
+    <tr><td>Fileinfo <span class="text-danger fs12">*обязательно</span></td><td><?php if($e_fileinfo){echo '<span style="color:green;">да</span>';}else{echo '<span style="color:red;">нет</span>';}?></td></tr>
+    <tr><td>curl <span class="text-danger fs12">*обязательно</span></td><td><?php if($e_curl){echo '<span style="color:green;">да</span>';}else{echo '<span style="color:red;">нет</span>';}?></td></tr>
+    </tbody>
+</table>
+<p style="font-weight: bold;">2. Проверьте прав на запись каталогов</p>
+    <table class="table table-bordered table-sm">
+        <thead class="thead-light">
+        <tr>
+            <th>Каталог</th>
+            <th>Статус</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr><td>cache</td><td>
+            <?php if($f_cache){echo '<span style="color:green;">да</span>';}else{echo '<span style="color:red;">нет</span>';} ?>
+        </td></tr>
+        <tr><td>data</td><td>
+            <?php if($f_data){echo '<span style="color:green;">да</span>';}else{echo '<span style="color:red;">нет</span>';}?>
+        </td></tr>
+        <tr><td>uploadfile</td><td>
+            <?php if($f_uploadfile){echo '<span style="color:green;">да</span>';}else{echo '<span style="color:red;">нет</span>';} ?>
+        </td></tr>
+        <tr><td>tslogs</td><td>
+            <?php if($f_tslogs){echo '<span style="color:green;">да</span>';}else{echo '<span style="color:red;">нет</span>';} ?>
+        </td></tr>
+        <tr><td>upgrade</td><td>
+            <?php if($f_upgrade){echo '<span style="color:green;">да</span>';}else{echo '<span style="color:red;">нет</span>';} ?>
+        </td></tr>
+        </tbody>
+    </table>
+<p>Обязательно установите необходимые компоненты PHP и права на запись для каталогов (777).</p>
+<?php if($e_dom==0 || $e_mbstring==0 || $e_gd==0 || $e_mysqli==0 || $e_openssl==0 || $e_session==0 || $e_SimpleXML==0 || $e_json==0 || $e_iconv==0 || $e_fileinfo==0 || $e_curl==0 || $f_cache==0 || $f_data==0 || $f_uploadfile==0 || $f_tslogs==0 || $f_upgrade==0){ ?>
+<p><a class="button" href="index.php">После настройки не забудьте обновить страницу</a></p>
+<?php }else{ ?>
+<p class="step"><a class="button" href="index.php?install=next">Начать установку!</a></p>
+<?php } ?>
+</div>
+</div>
+</div>
+<script>
+//проверка новой версии
+$(document).ready(function(){
+    $.getJSON("https://www.thinksaas.cn/index.php?app=upcenter&ac=find&version=<?php echo $TS_CF['info']['version'];?>&callback=?",
+        function(data){
+            if(data){
+                $("#notice").show();
+            }
+        });
+});
+</script>
+<?php include 'footer.html'; ?>

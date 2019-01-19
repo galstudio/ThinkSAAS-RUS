@@ -1,0 +1,109 @@
+{php include pubTemplate("header_admin")}
+<script src="public/js/jquery.min.js" type="text/javascript"></script>
+<script>
+$(document).ready(function(){
+	$.getJSON("https://www.thinksaas.cn/index.php?app=notice&ac=new&callback=?",
+	function(data){
+		$.each(data, function(i,item){
+			$("#admindex_msg table").append("<tr><td width=\"120\">"+item.time+"</td><td><a href=\""+item.url+"\" target=\"_blank\">"+item.title+"</a></td></tr>");
+		});
+		return false;
+	});
+    var theAuthUrl = getLocation();
+    var theVersion = '{$TS_CF[info][version]}';
+	$.getJSON("https://www.thinksaas.cn/index.php?app=service&ac=auth&ts=isauth&url="+theAuthUrl+"&version="+theVersion+"&callback=?",
+	function(rs){
+		if(rs){
+			if(rs.isaudit==1){
+				$("#authurl").html(theAuthUrl+' домен лицензирован');
+				return false;
+			}else{
+				$("#authurl").html(theAuthUrl+' домен не лицензирован <a target=\"_blank\" href=\"https://www.thinksaas.cn/service/down/\">[купить лицензию]</a>');
+				return false;
+			}
+		}else{
+			$("#authurl").html(theAuthUrl+' домен не лицензирован <a target=\"_blank\" href=\"https://www.thinksaas.cn/service/down/\">[купить лицензию]</a>');
+			return false;
+		}
+	});
+});
+function getLocation(){
+    var arr = document.domain.split('.');
+    if(arr.length === 2){
+        return document.domain;
+    }
+    if(arr.length > 2 && arr[0] !== 'www'){
+        return arr.slice(1).join('.')
+    }
+    return arr.slice(1).join('.')
+}
+</script>
+<div class="midder">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <div class="card-header">Разрешения на папки</div>
+                <div class="card-body">
+                    <table class="table table-sm table-borderless fs12">
+                        <tbody>
+                        <tr><td width="120">Папка cache:</td><td>{if iswriteable('cache')==0}<font color="red">нет записи</font>(установите на папку 777 права){else}запись{/if}</td></tr>
+                        <tr><td>Папка data:</td><td>{if iswriteable('data')==0}<font color="red">нет записи</font> (установите на папку 777 права){else}запись{/if}</td></tr>
+                        <tr><td>Папка tslogs:</td><td>{if iswriteable('tslogs')==0}<font color="red">нет записи</font> (установите на папку 777 права){else}запись{/if}</td></tr>
+                        <tr><td>Папка upgrade:</td><td>{if iswriteable('upgrade')==0}<font color="red">нет записи</font> (установите на папку 777 права){else}запись{/if}</td></tr>
+                        <tr><td>Папка uploadfile:</td><td>{if iswriteable('uploadfile')==0}<font color="red">нет записи </font>(установите на папку 777 права){else}запись{/if}</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <div class="card-header">Информация о программе</div>
+                <div class="card-body">
+            <table class="table table-sm table-borderless fs12">
+                <tbody>
+                <tr><td width="120">Версия:</td><td>{$TS_CF[info][name]} {$TS_CF['info']['version']}  <span id="upgrade"></span></td></tr>
+                <tr><td>Контакты:</td><td>QQ:{$TS_CF['info']['qq']} Блог: {$TS_CF['info']['weixin']}</td></tr>
+                <tr><td>Сайт:</td><td><a href="{$TS_CF[info][url]}" target='_blank'>{$TS_CF[info][url]}</a></td></tr>
+                <tr><td>Лицензия:</td><td><span id="authurl"></span></td></tr>
+                <tr><td>Пожертвовать:</td><td><a target="_blank" href="https://www.thinksaas.cn/service/donate/">ThinkSAAS</a></td></tr>
+                </tbody>
+            </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div class="card mb-3">
+                <div class="card-header">Информация о сервере</div>
+                <div class="card-body">
+            <table class="table table-sm table-borderless fs12">
+                <tbody>
+                <tr><td width="120">ПО:</td><td>{$systemInfo[server]}</td></tr>
+                <tr><td>ОС:</td><td>{$systemInfo[phpos]}</td></tr>
+                <tr><td>PHP:</td><td>{$systemInfo[phpversion]}</td></tr>
+                <tr><td>MySQL:</td><td>{$systemInfo[mysql]}</td></tr>
+                <tr><td>Корень:</td><td>$_SERVER[DOCUMENT_ROOT]</td></tr>
+                <tr><td>Ограничения:</td><td>{$systemInfo[upload]}</td></tr>
+                <tr><td>GD:</td><td>{$systemInfo[gd]} </td></tr>
+                <tr><td>Локаль:</td><td>{$_SERVER[HTTP_ACCEPT_LANGUAGE]}</td></tr>
+                <tr><td>GZIP:</td><td>{if $_SERVER[HTTP_ACCEPT_ENCODING]}{$_SERVER[HTTP_ACCEPT_ENCODING]}{else}Не поддерживается{/if}</td></tr>
+                </tbody>
+            </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6" id="admindex_msg">
+            <div class="card mb-3">
+                <div class="card-header">Новости ThinkSAAS</div>
+                <div class="card-body">
+            <table class="table table-sm table-borderless fs12">
+                <tbody>
+                </tbody>
+            </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{php include pubTemplate("footer_admin")}

@@ -1,0 +1,20 @@
+{php include pubTemplate("header")}
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+{template s_menu}
+<div class="s_top">Результаты поиска по вашему запросу: {$articleNum}</div>
+{loop $arrArticle $key $item}
+<div class="result">
+<div class="content">
+<div><span class="c9">[Статья] </span>&nbsp;<a  href="{tsUrl('article','show',array('id'=>$item[articleid]))}">{tsTitle($item[title])}</a></div>
+<div class="info"><i class="fal fa-clock"></i> {$item[addtime]} <i class="far fa-comment ml-3"></i> {$item[count_comment]}</div>
+<p></p>
+</div>
+</div>
+{/loop}
+<div class="mt-3">{$pageUrl}</div>
+</div>
+</div>
+</div>
+{php include pubTemplate("footer")}

@@ -1,0 +1,9 @@
+<div class="mb-3">
+    <a class="btn btn-sm {if $ts=='base'}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('my','setting',array('ts'=>'base'))}">Общие</a>
+    <a class="btn btn-sm {if $ts=='face'}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('my','setting',array('ts'=>'face'))}">Аватар</a>
+    <a class="btn btn-sm {if $ts=='pwd' || $ac=='user'}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('my','setting',array('ts'=>'pwd'))}">Пароль</a>
+    <a class="btn btn-sm {if $ts=='email' || $ac=='user'}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('my','setting',array('ts'=>'email'))}">Email</a>
+    <a class="btn btn-sm {if $ts=='city' || $ac=='user'}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('my','setting',array('ts'=>'city'))}">Район</a>
+    <a class="btn btn-sm {if $ts=='tag' || $ac=='user'}btn-outline-secondary{else}text-secondary{/if}" href="{tsUrl('my','setting',array('ts'=>'tag'))}">Теги</a>
+</div>
+<hr />

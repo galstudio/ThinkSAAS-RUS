@@ -1,0 +1,45 @@
+{php include pubTemplate("header_admin")}
+
+<!--main-->
+<div class="midder">
+
+{php include template("admin/menu");}
+
+<div class="page">{$pageUrl}</div>
+
+<table class="table table-hover">
+
+
+    <thead>
+
+    <tr><th>ID</th><th>Заголовок</th><th>Создан</th><th>Статус</th><th>Действия</th></tr>
+
+    </thead>
+
+
+    <tbody>
+
+
+
+    </tbody>
+
+
+    <tbody>
+
+    {loop $arrTopic $key $item}
+    <tr><td>{$item['topicid']}</td><td><a href="index.php?app=group&ac=admin&mg=topic&ts=editview&topicid={$item['topicid']}">{$item['title']}</a></td><td>{$item['addtime']}</td><td>{if $item['isupdate']==1}<font color="green">Обновлен</font>{else}Не обновлен{/if}</td><td>
+        <a href="{SITE_URL}index.php?app=group&ac=admin&mg=topic&ts=update&topicid={$item['topicid']}">Обновить</a>
+    </td>
+    </tr>
+    {/loop}
+
+    </tbody>
+
+
+
+
+
+</table>
+
+</div>
+{php include pubTemplate("footer_admin")}

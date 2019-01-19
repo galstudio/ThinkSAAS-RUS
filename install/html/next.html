@@ -1,0 +1,224 @@
+<?php include 'header.html'; ?>
+<style>
+p, li, dd, dt {
+    font-size: 12px;
+    line-height: 18px;
+    padding-bottom: 2px;
+}
+.step {
+    margin: 20px 0 15px;
+}
+.step, th {
+    padding: 0;
+    text-align: left;
+}
+.submit input, .button, .button-secondary {
+    -moz-box-sizing: content-box;
+    border: 1px solid #BBBBBB;
+    border-radius: 15px 15px 15px 15px;
+    color: #464646;
+    cursor: pointer;
+    font-family: "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
+    font-size: 14px !important;
+    line-height: 16px;
+    padding: 6px 12px;
+    text-decoration: none;
+}
+.button:hover, .button-secondary:hover, .submit input:hover {
+    border-color: #666666;
+    color: #000000;
+}
+.button, .submit input, .button-secondary {
+    background:#F2F2F2;
+}
+.button:active, .submit input:active, .button-secondary:active {
+    background: #EEEEEE;
+}
+
+.form-table {
+    border-collapse: collapse;
+    margin-top: 1em;
+    width: 100%;
+}
+.form-table td {
+    border-bottom: 8px solid #FFFFFF;
+    font-size: 12px;
+    margin-bottom: 9px;
+    padding: 10px;
+}
+.form-table th {
+    border-bottom: 8px solid #FFFFFF;
+    font-size: 13px;
+    padding: 16px 10px 10px;
+    text-align: left;
+    vertical-align: top;
+    width: 130px;
+}
+.form-table tr {
+    background: none repeat scroll 0 0 #F3F3F3;
+}
+.form-table code {
+    font-size: 18px;
+    line-height: 18px;
+}
+.form-table p {
+    font-size: 11px;
+    margin: 4px 0 0;
+}
+.form-table input {
+    font-size: 15px;
+    line-height: 20px;
+    padding: 2px;
+}
+.form-table th p {
+    font-weight: normal;
+}
+#error-page {
+    margin-top: 50px;
+}
+#error-page p {
+    font-size: 12px;
+    line-height: 18px;
+    margin: 25px 0 20px;
+}
+#error-page code, .code {
+    font-family: Consolas,Monaco,Courier,monospace;
+}
+#pass-strength-result {
+    background-color: #EEEEEE;
+    border-color: #DDDDDD !important;
+    border-style: solid;
+    border-width: 1px;
+    display: none;
+    margin: 5px 5px 5px 1px;
+    padding: 5px;
+    text-align: center;
+    width: 200px;
+}
+#pass-strength-result.bad {
+    background-color: #FFB78C;
+    border-color: #FF853C !important;
+}
+#pass-strength-result.good {
+    background-color: #FFEC8B;
+    border-color: #FFCC00 !important;
+}
+#pass-strength-result.short {
+    background-color: #FFA0A0;
+    border-color: #F04040 !important;
+}
+#pass-strength-result.strong {
+    background-color: #C3FF88;
+    border-color: #8DFF1C !important;
+}
+.message {
+    background-color: #FFFFE0;
+    border: 1px solid #E6DB55;
+    margin: 5px 0 15px;
+    padding: 0.3em 0.6em;
+}
+</style>
+<!--main-->
+<div class="container mt-3 mb-3">
+<div class="card">
+<div class="card-body">
+<form action="index.php?install=result" method="post">
+	<p>Введите информацию о базе данных ниже. Если вы не уверены, то проконсультируйтесь с хостинг-провайдером.</p>
+	<table class="form-table">
+		<tbody><tr>
+			<th scope="row"><label for="dbname">База данных:</label></th>
+			<td><input type="text" value="thinksaas" size="25" id="dbname" name="name"></td>
+			<td>укажите базу данных в которую вы хотите установить систему</td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="uname">Логин:</label></th>
+			<td><input type="text" value="root" size="25" id="uname" name="user"></td>
+			<td>логин пользователя к MySQL</td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="pwd">Пароль:</label></th>
+			<td><input type="text" value="123456" size="25" id="pwd" name="pwd"></td>
+			<td>... и пароль к MySQL</td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="dbhost">Сервер:</label></th>
+			<td><input type="text" value="localhost" size="25" id="dbhost" name="host"></td>
+			<td>как правило, это <b style="color:#b44b4b;">localhost</b>, но у вас может быть другой</td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="dbport">Порт:</label></th>
+			<td><input type="text" value="3306" size="25" id="dbport" name="port"></td>
+			<td>по-умолчанию 3306</td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="prefix">Префикс таблиц:</label></th>
+			<td><input type="text" size="25" value="ts_" id="prefix" name="pre"></td>
+			<td>если вы хотите установить несколько систем в одну базу данных</td>
+		</tr>
+	</tbody></table>
+<p>Введите информацию о сайте ниже</p>
+	<table class="form-table">
+		<tbody>
+		<tr>
+			<th scope="row"><label for="site_title">Название сайта:</label></th>
+			<td><input type="text" value="ThinkSAAS RUS" size="25" name="site_title"></td>
+			<td>название вашего сайта</td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="site_subtitle">Подзаголовок сайта:</label></th>
+			<td><input type="text" value="интернет сообщество" size="25" name="site_subtitle"></td>
+			<td>подзаголовок будет отображаться после заголовка на главной странице</td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="site_url">URL сайта:</label></th>
+			<td><input type="text" value="<?php echo $site_url; ?>" size="25" name="site_url"></td>
+			<td>заполняйте правильно, в начале http:// и окончание /</td>
+		</tr>
+	</tbody>
+	</table>
+<p>Введите информацию администратора ниже</p>
+
+	<table class="form-table">
+		<tbody>
+		<tr>
+			<th scope="row"><label for="email">Email администратора:</label></th>
+			<td><input type="text" value="admin@site.ru" size="25" name="email"></td>
+			<td>будет использоваться для входа на сайт и в админпанель</td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="password">Пароль:</label></th>
+			<td><input type="text" value="123456" size="25" name="password"></td>
+			<td>пароль администратора</td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="username">Имя пользователя:</label></th>
+			<td><input type="text" value="admin" size="25" name="username"></td>
+			<td>будет использоваться для отображения на сайте</td>
+		</tr>
+	</tbody>
+	</table>
+<p>Укажите метод соединения с базой данных</p>
+	<table class="form-table">
+		<tbody>
+		<tr>
+			<th scope="row"><label for="sql">Подключения:</label></th>
+			<td><select name="sql">
+			<option value="mysqli">MySQLi</option>
+                <!--
+			<option value="pdo_mysql">PDO_MySQL</option>
+			-->
+			</select></td>
+			<td><!--выбор pdo_mysql требует поддержки php для расширения pdo_mysql--></td>
+		</tr>
+	</tbody>
+	</table>
+		<p class="step">
+			<input type="hidden" name="site_pkey" value="<?php echo md5(rand()); ?>" />
+			<input type="submit" class="button" value="Далее" name="submit">
+		</p>
+</form>
+</div>
+</div>
+</div>
+<?php include 'footer.html'; ?>
+

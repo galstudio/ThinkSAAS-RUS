@@ -1,0 +1,100 @@
+{php include pubTemplate("header")}
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{SITE_URL}">Главная</a></li>
+            <li class="breadcrumb-item"><a href="{tsUrl('article')}">Статьи</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Добавление статьи</li>
+        </ol>
+    </nav>
+
+
+<div class="card">
+  <div class="card-body">
+
+
+<div class="row">
+<div class="col-md-2"></div>
+<div class="col-md-8">
+
+
+<form method="POST" action="{SITE_URL}index.php?app=article&ac=add&ts=do"  enctype="multipart/form-data">
+
+  <div class="form-group">
+    <label>Заголовок:</label>
+    <input name="title" type="text" class="form-control">
+  </div>
+{if $arrCate}
+  <div class="form-group">
+    <label>Рубрика:</label>
+
+<select name="cateid" class="form-control">
+{loop $arrCate $key $item}
+    <optgroup label="{$item['catename']}">
+        {loop $item['two'] $tkey $titem}
+        <option value ="{$titem['cateid']}">{$titem['catename']}</option>
+        {/loop}
+    </optgroup>
+{/loop}
+</select>
+
+  </div>
+{/if}
+
+  <div class="form-group">
+    <label>Текст статьи:</label>
+      <div id="tseditor"></div>
+      <div style="display: none;">
+          <textarea name="content"></textarea>
+      </div>
+  </div>
+
+
+    <div class="form-group">
+        <label>Краткое содержание:</label>
+        <textarea class="form-control" name="gaiyao"></textarea>
+    </div>
+
+  <div class="form-group">
+    <label>Теги:</label>
+    <input name="tag" type="text" class="form-control">
+  </div>
+
+   <div class="form-group">
+    <label>Изображение:</label>
+
+       <div class="custom-file">
+           <input type="file" name="photo" class="custom-file-input" id="customFile" accept="image/jpeg,image/png">
+           <label class="custom-file-label c9" for="customFile">Только изображения формата jpg, png. Размер: 640*400px</label>
+       </div>
+
+  </div>
+
+
+
+
+<input type="hidden" name="token" value="{$_SESSION['token']}" />
+<button class="btn btn-sm btn-info" type="submit">Опубликовать</button>
+
+    <a class="btn btn-sm btn-outline-secondary" href="{tsUrl('article')}">Отменить</a>
+
+</form>
+
+
+</div>
+<div class="col-md-2"></div>
+</div>
+
+
+
+</div>
+</div>
+
+
+
+
+
+</div>
+{php doAction('tseditor')}
+{php include pubTemplate("footer")}

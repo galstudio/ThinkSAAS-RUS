@@ -1,0 +1,13 @@
+<h6>Управление статьями</h6>
+<div class="tabnav">
+<ul>
+<li {if $mg=='options'}class="select"{/if}><a href="{SITE_URL}index.php?app=article&ac=admin&mg=options">Конфигурация</a></li>
+
+<li {if $mg=='cate' && $ts=='list'}class="select"{/if}><a href="{SITE_URL}index.php?app=article&ac=admin&mg=cate&ts=list">Рубрики</a></li>
+
+<li {if $mg=='cate' && $ts=='add'}class="select"{/if}><a href="{SITE_URL}index.php?app=article&ac=admin&mg=cate&ts=add">Добавить рубрику</a></li>
+
+<li {if $mg=='post' && $ts=='list'}class="select"{/if}><a href="{SITE_URL}index.php?app=article&ac=admin&mg=post&ts=list">Статьи</a></li>
+
+</ul>
+</div>

@@ -1,0 +1,65 @@
+{php include pubTemplate("header_admin")}
+<div class="midder">
+<h2>Настройка анти-спама</h2>
+<p>В ответ на растущий спам в сетяз, ThinkSAAS создала альянс против спама в контенте, который будет бороться со спамом со дня его запуска.</p>
+<table>
+<tr><td width="250"><strong>Блокировка пользователя:</strong></td>
+<td>
+Пользователям запрещается одновременно вход в систему по логину/нику и по IP-адресу.
+<br />
+Метод работы: пользователь -> блокировка
+<br />
+<a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=list">Управление пользователями >></a>
+</td>
+</tr>
+<tr>
+<td><strong>Очистить данные пользователя:</strong></td><td>
+Очистить весь спам, отправленный пользователями.
+<br />
+Метод работы: пользователи -> очистить данные
+<br />
+<a href="{SITE_URL}index.php?app=user&ac=admin&mg=user&ts=list">Управление пользователями >></a>
+</td>
+</tr>
+<tr><td><strong>Фильтрация спам-слов:</strong></td><td>
+Фильтруйте и устраняйте спам в контенте, включив «плагин фильтра слов  (wast_word)»
+<br />
+Метод работы: плагины -> плагин фильтра слов (wast_word)-> включить
+<br /><a href="{SITE_URL}index.php?app=system&ac=plugin&ts=list&apps=pubs">Управление плагинами >></a>  |  <a href="{SITE_URL}index.php?app=system&ac=spam&ts=get">Обновление облачного фильтра >></a>
+</td></tr>
+<tr>
+<td><strong>Код подтверждения:</strong></td>
+<td>
+Осложните спамерам жизнь, включив коды подтверждения при публикации и комментариях.
+</td>
+</tr>
+</table>
+<h2>Удаленный спам</h2>
+<p>Если вы обнаружили спам, отправьте его в ThinkSAAS, введя ниже. Он будет помещен в общую базу спама.</p>
+<table>
+<tr>
+<td width="100">Спам-слово:</td><td>
+<input id="spamword" type="text" name="word" />
+<input type="button" value="Отправить" onclick="postword();" />
+</td>
+</tr>
+</table>
+</div>
+<script>var siteUrl = '{SITE_URL}';</script>
+<script src="{SITE_URL}public/js/jquery.min.js" type="text/javascript"></script>
+<script>
+function postword(){
+	var word = $("#spamword").val();
+	if(word==''){
+		alert('Спам-слово не может быть пустым!');return false;
+	}else{
+		$.post("http://www.thinksaas.cn/index.php?app=service&ac=spam", { 'word': word},
+		function(rs){
+			alert('Успешно добавлено! Спасибо за ваше предложение!');
+			$("#spamword").val('');
+			return false;
+		})
+	}
+}
+</script>
+{php include pubTemplate("footer_admin")}

@@ -1,0 +1,16 @@
+{php include pubTemplate("header_admin")}
+<div class="midder">
+{php include template("admin/menu");}
+<form method="POST" action="{SITE_URL}index.php?app=user&ac=admin&mg=options&ts=do">
+<table class="table table-hover">
+<tr><td>Название приложения:</td><td><input style="width:300px;" name="option[appname]" value="{$strOption[appname]}" /></td></tr>
+<tr><td>Описание:</td><td><textarea style="width:300px;" name="option[appdesc]">{$strOption[appdesc]}</textarea></td></tr>
+<tr><td>Ключевые слова:</td><td><input style="width:300px;" name="option[appkey]" value="{$strOption[appkey]}" /></td></tr>
+<tr><td>Включить?</td><td><input {if $strOption[isenable]=='0'}checked="select"{/if} name="option[isenable]" type="radio" value="0" /> да <input {if $strOption[isenable]=='1'}checked="select"{/if} name="option[isenable]" type="radio" value="1" /> нет</td></tr>
+<tr><td>Присоединиться к группе по умолчанию:</td><td><input style="width:300px;" name="option[isgroup]" value="{$strOption[isgroup]}" /> (введите ID группы, можно указать несколько ID, например: 1, 2, 3)</td></tr>
+<tr><td>Запрещенные логины пользователей:</td><td><input style="width:300px;" name="option[banuser]" value="{$strOption['banuser']}" /> (запрещенные при регистрации логины, разделяйте их вертикальеой | чертой）</td></tr>
+<tr><td></td><td><input class="btn btn-primary" type="submit" value="Сохранить" /></td></tr>
+</table>
+</form>
+</div>
+{php include pubTemplate("footer_admin")}
