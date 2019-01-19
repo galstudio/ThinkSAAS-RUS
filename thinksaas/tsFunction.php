@@ -175,7 +175,7 @@ function valid_email($email) {
 }
 
 /**
- * Склонение слов
+ * склонения слов после числительных
  */
 
 function plural_form($number, $after) {
