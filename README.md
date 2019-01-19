@@ -13,3 +13,5 @@
 
 ![ScreenShot](https://github.com/galstudio/ThinkSAAS-RUS/blob/master/screenshot.jpg)
 ![ScreenShot](https://github.com/galstudio/ThinkSAAS-RUS/blob/master/screenshot1.jpg)
+
+Если у кого есть платные приложения присылайте переведу/добавлю в сборку )
